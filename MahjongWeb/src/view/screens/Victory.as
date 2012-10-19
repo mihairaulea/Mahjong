@@ -77,7 +77,7 @@ package view.screens
 			[
 				this._menuButton
 			];
-			
+				
 			particle = new PDParticleSystem(Assets.getParticleXML("Victory"), 
 				Assets.getTexture("VictoryParticleTexture"));
 			particle2 = new PDParticleSystem(Assets.getParticleXML("Victory"), 
@@ -85,7 +85,7 @@ package view.screens
 			
 			this._victoryFlag = new Image(util.Assets.getAssetsTexture("victoryFlag"));
 			this._victoryFlag2 = new Image(util.Assets.getAssetsTexture("victoryFlag"));
-			
+				
 			// handles the back hardware key on android
 			this.backButtonHandler = this.onBackButton;
 		}
@@ -97,6 +97,8 @@ package view.screens
 			this.addChild(this._header);
 			this.addChild(particle);
 			this.addChild(particle2);
+			Starling.juggler.add(particle);
+			Starling.juggler.add(particle2);
 			
 			const spacingX:Number = this.originalWidth * 0.06 * this.dpiScale;
 			const spacingY:Number = this.originalHeight * 0.06 * this.dpiScale;
@@ -129,15 +131,25 @@ package view.screens
 			this._victoryFlag2.x = (this.actualWidth + maxWidth) / 2 + spacingX * 5;
 			this._victoryFlag2.y = 0;
 			
-			
-			Starling.juggler.add(particle);
-			Starling.juggler.add(particle2);
 			particle.x = _victoryFlag.x + _victoryFlag.width / 2;
 			particle.y = _victoryFlag.height;
 			particle2.x = _victoryFlag2.x + _victoryFlag2.width / 2;
 			particle2.y = _victoryFlag2.height;
 			particle.start();
 			particle2.start();
+		}
+		
+		public function initVictory():void
+		{
+			if (particle != null && particle2 != null)
+			{
+				addChild(particle);
+				addChild(particle2);
+				Starling.juggler.add(particle);
+				Starling.juggler.add(particle2);
+				particle.start();
+				particle2.start();
+			}
 		}
 		
 		public function set gameData(value:GameData):void
@@ -154,6 +166,8 @@ package view.screens
 		{
 			particle.stop();
 			particle2.stop()
+			Starling.juggler.remove(particle);
+			Starling.juggler.remove(particle2);
 			removeChild(particle);
 			removeChild(particle2);
 			this.onBackButton();
@@ -163,6 +177,8 @@ package view.screens
 		{
 			particle.stop();
 			particle2.stop()
+			Starling.juggler.remove(particle);
+			Starling.juggler.remove(particle2);
 			removeChild(particle);
 			removeChild(particle2);
 			this.onBackButton();

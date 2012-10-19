@@ -5,6 +5,7 @@ package view.util
 	import flash.errors.IllegalOperationError;
 	import starling.display.DisplayObject;
 	import view.screens.Game;
+	import view.screens.Victory;
 	
 	
 	public class ContentRequester
@@ -30,7 +31,6 @@ package view.util
 				for (var property:String in this.initializer)
 				{
 					this._screenInstance[property] = this.initializer[property];
-					trace(this._screenInstance[property]);
 				}
 			}
 			
@@ -48,6 +48,20 @@ package view.util
 			}
 			
 			(this._screenInstance as Game).initNewGame();
+			return this._screenInstance;
+		}
+		
+		internal function getVictory():DisplayObject
+		{
+			if (this.initializer)
+			{
+				for (var property:String in this.initializer)
+				{
+					this._screenInstance[property] = this.initializer[property];
+				}
+			}
+			
+			(this._screenInstance as Victory).initVictory();
 			return this._screenInstance;
 		}
 		

@@ -1,0 +1,12 @@
+# Build and Release Folders
+MahjongMobile/bin/
+MahjongMobile/bat/
+MahjongWeb/bin/
+MahjongWeb/bat/
+# bin-debug/
+# bin-release/
+
+# Other files and folders
+#.settings/
+# .bat
+*.swf

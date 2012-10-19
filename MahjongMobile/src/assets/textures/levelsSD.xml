@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:86ae90f1e12f724f16e0ef97213504b1$ -->
+<TextureAtlas imagePath="levelsSD.png">
+    <SubTexture name="1" x="1" y="1" width="115" height="75"/>
+    <SubTexture name="10" x="117" y="1" width="115" height="75"/>
+    <SubTexture name="11" x="233" y="1" width="115" height="75"/>
+    <SubTexture name="12" x="349" y="1" width="115" height="75"/>
+    <SubTexture name="13" x="1" y="77" width="115" height="75"/>
+    <SubTexture name="14" x="117" y="77" width="115" height="75"/>
+    <SubTexture name="15" x="233" y="77" width="115" height="75"/>
+    <SubTexture name="16" x="349" y="77" width="115" height="75"/>
+    <SubTexture name="17" x="1" y="153" width="115" height="75"/>
+    <SubTexture name="18" x="117" y="153" width="115" height="75"/>
+    <SubTexture name="19" x="233" y="153" width="115" height="75"/>
+    <SubTexture name="2" x="349" y="153" width="115" height="75"/>
+    <SubTexture name="20" x="1" y="229" width="115" height="75"/>
+    <SubTexture name="21" x="117" y="229" width="115" height="75"/>
+    <SubTexture name="3" x="233" y="229" width="115" height="75"/>
+    <SubTexture name="4" x="349" y="229" width="115" height="75"/>
+    <SubTexture name="5" x="1" y="305" width="115" height="75"/>
+    <SubTexture name="6" x="117" y="305" width="115" height="75"/>
+    <SubTexture name="7" x="233" y="305" width="115" height="75"/>
+    <SubTexture name="8" x="349" y="305" width="115" height="75"/>
+    <SubTexture name="9" x="1" y="381" width="115" height="75"/>
+</TextureAtlas>

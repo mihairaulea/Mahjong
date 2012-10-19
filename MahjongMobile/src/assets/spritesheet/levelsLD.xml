@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:d0fc40462f14406fcd7c0b9539de18e1$ -->
+<TextureAtlas imagePath="levelsLD.png">
+    <SubTexture name="1" x="1" y="1" width="115" height="74"/>
+    <SubTexture name="10" x="117" y="1" width="115" height="74"/>
+    <SubTexture name="11" x="233" y="1" width="115" height="74"/>
+    <SubTexture name="12" x="349" y="1" width="115" height="74"/>
+    <SubTexture name="13" x="1" y="76" width="115" height="74"/>
+    <SubTexture name="14" x="117" y="76" width="115" height="74"/>
+    <SubTexture name="15" x="233" y="76" width="115" height="74"/>
+    <SubTexture name="16" x="349" y="76" width="115" height="74"/>
+    <SubTexture name="17" x="1" y="151" width="115" height="74"/>
+    <SubTexture name="18" x="117" y="151" width="115" height="74"/>
+    <SubTexture name="19" x="233" y="151" width="115" height="74"/>
+    <SubTexture name="2" x="349" y="151" width="115" height="74"/>
+    <SubTexture name="20" x="1" y="226" width="115" height="74"/>
+    <SubTexture name="21" x="117" y="226" width="115" height="74"/>
+    <SubTexture name="3" x="233" y="226" width="115" height="74"/>
+    <SubTexture name="4" x="349" y="226" width="115" height="74"/>
+    <SubTexture name="5" x="1" y="301" width="115" height="74"/>
+    <SubTexture name="6" x="117" y="301" width="115" height="74"/>
+    <SubTexture name="7" x="233" y="301" width="115" height="74"/>
+    <SubTexture name="8" x="349" y="301" width="115" height="74"/>
+    <SubTexture name="9" x="1" y="376" width="115" height="74"/>
+    <SubTexture name="normal-page-symbol" x="117" y="376" width="12" height="12"/>
+    <SubTexture name="selected-page-symbol" x="130" y="376" width="12" height="12"/>
+</TextureAtlas>

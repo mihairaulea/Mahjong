@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:24b2e7bdee3c447d7d690512587a0074$ -->
+<TextureAtlas imagePath="assetsLD.png">
+    <SubTexture name="backgroundDisabled" x="1" y="1" width="32" height="32"/>
+    <SubTexture name="backgroundDown" x="34" y="1" width="32" height="32"/>
+    <SubTexture name="backgroundTemplate" x="67" y="1" width="32" height="32"/>
+    <SubTexture name="1" x="100" y="1" width="28" height="33"/>
+    <SubTexture name="10" x="129" y="1" width="28" height="33"/>
+    <SubTexture name="2" x="158" y="1" width="28" height="33"/>
+    <SubTexture name="3" x="187" y="1" width="28" height="33"/>
+    <SubTexture name="4" x="216" y="1" width="28" height="33"/>
+    <SubTexture name="5" x="245" y="1" width="28" height="33"/>
+    <SubTexture name="6" x="274" y="1" width="28" height="33"/>
+    <SubTexture name="7" x="303" y="1" width="28" height="33"/>
+    <SubTexture name="8" x="332" y="1" width="28" height="33"/>
+    <SubTexture name="9" x="361" y="1" width="28" height="33"/>
+    <SubTexture name="11" x="390" y="1" width="28" height="33"/>
+    <SubTexture name="12" x="419" y="1" width="28" height="33"/>
+    <SubTexture name="13" x="448" y="1" width="28" height="33"/>
+    <SubTexture name="14" x="477" y="1" width="28" height="33"/>
+    <SubTexture name="15" x="1" y="35" width="28" height="33"/>
+    <SubTexture name="16" x="30" y="35" width="28" height="33"/>
+    <SubTexture name="17" x="59" y="35" width="28" height="33"/>
+    <SubTexture name="18" x="88" y="35" width="28" height="33"/>
+    <SubTexture name="btnDisabled" x="117" y="35" width="64" height="64"/>
+    <SubTexture name="btnDown" x="182" y="35" width="64" height="64"/>
+    <SubTexture name="btnTemplate" x="247" y="35" width="64" height="64"/>
+    <SubTexture name="19" x="312" y="35" width="28" height="33"/>
+    <SubTexture name="20" x="341" y="35" width="28" height="33"/>
+    <SubTexture name="21" x="370" y="35" width="28" height="33"/>
+    <SubTexture name="22" x="399" y="35" width="28" height="33"/>
+    <SubTexture name="23" x="428" y="35" width="28" height="33"/>
+    <SubTexture name="24" x="457" y="35" width="28" height="33"/>
+    <SubTexture name="25" x="1" y="100" width="28" height="33"/>
+    <SubTexture name="26" x="30" y="100" width="28" height="33"/>
+    <SubTexture name="27" x="59" y="100" width="28" height="33"/>
+    <SubTexture name="28" x="88" y="100" width="28" height="33"/>
+    <SubTexture name="29" x="117" y="100" width="28" height="33"/>
+    <SubTexture name="30" x="146" y="100" width="28" height="33"/>
+    <SubTexture name="31" x="175" y="100" width="28" height="33"/>
+    <SubTexture name="32" x="204" y="100" width="28" height="33"/>
+    <SubTexture name="33" x="233" y="100" width="28" height="33"/>
+    <SubTexture name="34" x="262" y="100" width="28" height="33"/>
+    <SubTexture name="35" x="291" y="100" width="28" height="33"/>
+    <SubTexture name="36" x="320" y="100" width="28" height="33"/>
+    <SubTexture name="grey" x="1" y="134" width="397" height="322"/>
+    <SubTexture name="37" x="399" y="134" width="28" height="33"/>
+    <SubTexture name="38" x="428" y="134" width="28" height="33"/>
+    <SubTexture name="39" x="457" y="134" width="28" height="33"/>
+    <SubTexture name="40" x="1" y="457" width="28" height="33"/>
+    <SubTexture name="41" x="30" y="457" width="28" height="33"/>
+    <SubTexture name="42" x="59" y="457" width="28" height="33"/>
+    <SubTexture name="43" x="88" y="457" width="28" height="33"/>
+    <SubTexture name="logo" x="117" y="457" width="114" height="47"/>
+    <SubTexture name="menuFlag" x="232" y="457" width="71" height="135"/>
+    <SubTexture name="pageSelected" x="304" y="457" width="32" height="32"/>
+    <SubTexture name="pageTemplate" x="337" y="457" width="32" height="32"/>
+    <SubTexture name="sliderTemplate" x="370" y="457" width="30" height="8"/>
+    <SubTexture name="tabDown" x="401" y="457" width="64" height="64"/>
+    <SubTexture name="tabSelected" x="1" y="593" width="64" height="64"/>
+    <SubTexture name="thumbTemplate" x="66" y="593" width="32" height="32"/>
+    <SubTexture name="victoryFlag" x="99" y="593" width="40" height="130"/>
+</TextureAtlas>

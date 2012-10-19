@@ -1,0 +1,9 @@
+Bugs:
+- victory - done
+- piese click - done
+- memory leaks (level gen a fost fixat)
+
+ToDo:
+- efecte pe piese
+- touch pe piese
+- redo all assets

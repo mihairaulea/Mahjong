@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:4df24ef48709bb728844ddc44470a39d$ -->
+<TextureAtlas imagePath="pieces.png">
+    <SubTexture name="piece_1" x="0" y="0" width="44" height="53"/>
+    <SubTexture name="piece_10" x="44" y="0" width="44" height="53"/>
+    <SubTexture name="piece_2" x="88" y="0" width="44" height="53"/>
+    <SubTexture name="piece_3" x="132" y="0" width="44" height="53"/>
+    <SubTexture name="piece_4" x="176" y="0" width="44" height="53"/>
+    <SubTexture name="piece_5" x="0" y="53" width="44" height="53"/>
+    <SubTexture name="piece_6" x="44" y="53" width="44" height="53"/>
+    <SubTexture name="piece_7" x="88" y="53" width="44" height="53"/>
+    <SubTexture name="piece_8" x="132" y="53" width="44" height="53"/>
+    <SubTexture name="piece_9" x="176" y="53" width="44" height="53"/>
+    <SubTexture name="piece_11" x="0" y="0" width="44" height="53"/>
+    <SubTexture name="piece_12" x="0" y="106" width="44" height="53"/>
+    <SubTexture name="piece_13" x="44" y="106" width="44" height="53"/>
+    <SubTexture name="piece_14" x="88" y="106" width="44" height="53"/>
+    <SubTexture name="piece_15" x="132" y="106" width="44" height="53"/>
+    <SubTexture name="piece_16" x="176" y="106" width="44" height="53"/>
+    <SubTexture name="piece_17" x="0" y="159" width="44" height="53"/>
+    <SubTexture name="piece_18" x="44" y="159" width="44" height="53"/>
+    <SubTexture name="piece_19" x="88" y="159" width="44" height="53"/>
+    <SubTexture name="piece_20" x="132" y="159" width="44" height="53"/>
+    <SubTexture name="piece_21" x="176" y="159" width="44" height="53"/>
+    <SubTexture name="piece_22" x="0" y="212" width="44" height="53"/>
+    <SubTexture name="piece_23" x="44" y="212" width="44" height="53"/>
+    <SubTexture name="piece_24" x="88" y="212" width="44" height="53"/>
+    <SubTexture name="piece_25" x="132" y="212" width="44" height="53"/>
+    <SubTexture name="piece_26" x="176" y="212" width="44" height="53"/>
+    <SubTexture name="piece_27" x="0" y="265" width="44" height="53"/>
+    <SubTexture name="piece_28" x="44" y="265" width="44" height="53"/>
+    <SubTexture name="piece_29" x="88" y="265" width="44" height="53"/>
+    <SubTexture name="piece_30" x="132" y="265" width="44" height="53"/>
+    <SubTexture name="piece_31" x="176" y="265" width="44" height="53"/>
+    <SubTexture name="piece_32" x="0" y="318" width="44" height="53"/>
+    <SubTexture name="piece_33" x="44" y="318" width="44" height="53"/>
+    <SubTexture name="piece_34" x="88" y="318" width="44" height="53"/>
+    <SubTexture name="piece_35" x="132" y="318" width="44" height="53"/>
+    <SubTexture name="piece_36" x="176" y="318" width="44" height="53"/>
+    <SubTexture name="piece_37" x="0" y="371" width="44" height="53"/>
+    <SubTexture name="piece_38" x="44" y="371" width="44" height="53"/>
+    <SubTexture name="piece_39" x="88" y="371" width="44" height="53"/>
+    <SubTexture name="piece_40" x="132" y="371" width="44" height="53"/>
+    <SubTexture name="piece_41" x="176" y="371" width="44" height="53"/>
+    <SubTexture name="piece_42" x="0" y="424" width="44" height="53"/>
+    <SubTexture name="piece_43" x="44" y="424" width="44" height="53"/>
+</TextureAtlas>

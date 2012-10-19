@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:79be049a6b2e4ea2d627d5d675ee1d71$ -->
+<TextureAtlas imagePath="mahjong.png">
+    <SubTexture name="background-disabled-skin" x="1" y="1" width="32" height="32"/>
+    <SubTexture name="background-down-skin" x="34" y="1" width="32" height="32"/>
+    <SubTexture name="background-skin" x="67" y="1" width="32" height="32"/>
+	
+    <SubTexture name="button-disabled-skin" x="100" y="1" width="64" height="64"/>
+    <SubTexture name="button-down-skin" x="165" y="1" width="63" height="62"/>
+    <SubTexture name="button-up-skin" x="229" y="1" width="64" height="64"/>
+	
+    <SubTexture name="primary-background" x="1" y="66" width="843" height="843"/>
+    
+	<SubTexture name="slider-background-skin" x="845" y="66" width="16" height="16"/>
+    <SubTexture name="slider-disabled-skin" x="862" y="66" width="16" height="16"/>
+    <SubTexture name="slider-thumb-skin" x="879" y="66" width="32" height="32"/>
+    
+	<SubTexture name="tab-down-skin" x="912" y="66" width="90" height="90"/>
+    <SubTexture name="tab-selected-skin" x="1" y="910" width="90" height="90"/>
+    
+	<SubTexture name="toggle-thumb-skin" x="92" y="910" width="32" height="32"/>
+</TextureAtlas>

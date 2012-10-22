@@ -39,8 +39,8 @@ package
 			Starling.multitouchEnabled = true; // mobile devices
 			
 			// Debug stats
-			//this.stats = new Stats();
-			//this.addChild(stats);
+			this.stats = new Stats();
+			this.addChild(stats);
 			
 			// Init starling
 			this.starling = new Starling(MainInterface, this.stage);

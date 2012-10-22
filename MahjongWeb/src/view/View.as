@@ -97,8 +97,8 @@ package view
 			
 			this.navigator.addScreen(VICTORY, new ContentRequester(Victory,
 			{
-				onBack: LEVEL_BROWSER,
-				onMenu: FIRST_SCREEN
+				onBack: GAME,
+				onMenu: LEVEL_BROWSER
 			},
 			{
 				gameData: this._gameData

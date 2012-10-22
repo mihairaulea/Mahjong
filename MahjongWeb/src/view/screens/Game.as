@@ -4,12 +4,14 @@ package view.screens
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import feathers.controls.ScreenHeader;
+	import feathers.controls.text.TextFieldTextRenderer;
 	import feathers.core.FeathersControl;
 	import feathers.core.ITextRenderer;
 	import feathers.display.Image;
 	import feathers.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.sampler.NewObjectSample;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	import model.BonusManager;
 	import model.levelGenerator.LevelGenerator;
@@ -38,14 +40,11 @@ package view.screens
 		private var _header:ScreenHeader;
 		private var _backButton:Button;
 		private var _resetButton:Button;
-		//private var _hintButton:Button;
 		private var _textPiecesLabel:ITextRenderer;
 		private var _textScoreLabel:ITextRenderer;
-		//private var _textPieces:ITextRenderer;
-		//private var _textScore:ITextRenderer;
 		private var _textTime:ITextRenderer;
-		private var _bonusLabel:ITextRenderer;
-		private var _displayBonusLabel:FeathersControl;
+		private var _bonusLabel:TextFieldTextRenderer;
+		private var _displayBonusLabel:DisplayObject;
 		
 		
 		//HUD vars
@@ -90,19 +89,16 @@ package view.screens
 			this._textPiecesLabel = FeathersControl.defaultTextRendererFactory();
 			this._textPiecesLabel.text = "Pieces left: 0";
 			
-			//this._textPieces = FeathersControl.defaultTextRendererFactory();
-			//this._textPieces.text = "0";
-			
 			this._textScoreLabel = FeathersControl.defaultTextRendererFactory();
 			this._textScoreLabel.text = "Score: 0";
-			
-			//this._textScore = FeathersControl.defaultTextRendererFactory();
-			//this._textScore.text = "0";
 			
 			this._textTime = FeathersControl.defaultTextRendererFactory();
 			this._textTime.text = "Time: 0:00";
 			
-			this._bonusLabel = FeathersControl.defaultTextRendererFactory();
+			this._bonusLabel = new TextFieldTextRenderer();
+			var bonusFormat = new TextFormat("trajanPro", 24, 0xC52126, true);
+			this._bonusLabel.embedFonts = true;
+			this._bonusLabel.textFormat = bonusFormat;
 			this._bonusLabel.text = "Bonus +250";
 			
 			this._header = new ScreenHeader();
@@ -115,10 +111,8 @@ package view.screens
 			this._header.rightItems = new <DisplayObject>
 			[
 				DisplayObject(this._textPiecesLabel),
-				//DisplayObject(this._textPieces),
 				DisplayObject(this._textTime),
 				DisplayObject(this._textScoreLabel),
-				//DisplayObject(this._textScore),
 				this._resetButton
 			];
 			
@@ -148,10 +142,10 @@ package view.screens
 			this._piecesMaxWidth = pieceDim.width * 18 + this._separatorX * 17 + this._displacementX * 5;
 			this._piecesMaxHeight = pieceDim.height * 8 + this._separatorY * 7 + this._displacementY * 5;
 			
-			this._displayBonusLabel = FeathersControl(this._bonusLabel);
+			this._displayBonusLabel = DisplayObject(this._bonusLabel);
 			this._displayBonusLabel.alpha = 0;
 			addChild(this._displayBonusLabel);
-			this._displayBonusLabel.validate();
+			//this._displayBonusLabel.validate();
 				
 			if(this.piecesManager.width > (this.actualWidth * 0.8))
 			{
@@ -195,19 +189,21 @@ package view.screens
 			_gameData.piecesInit = true;
 			
 			var piecesDataSource:PiecesDataSource = PiecesDataSource.getInstance();
-			
 			var levelMatrixDataSource:LevelMatrixDataSource = LevelMatrixDataSource.getInstance();		
-			
 			this._levelGenerator.init( levelMatrixDataSource.getLevelMatrix(gameData.id.toString()).levelArray );
 						
 			while (piecesDataSource.piecesLeft())
 			{
 				var piece:Piece = piecesDataSource.getRandomUsablePiece();				
-
 				if (piece != null)
 				{
-					//placeArray = 
-					this._levelGenerator.placePiece(piece.id);
+					var placeArray:Array = new Array();
+					placeArray = this._levelGenerator.placePiece(piece.id);
+					if (placeArray[0] != null || placeArray[1] != null)		
+					{
+						trace(piece.id, placeArray[0].x + " " + placeArray[0].y + " " + placeArray[0].z);
+						trace(placeArray[1].x+" "+placeArray[1].y+" "+placeArray[1].z);
+					}
 					piecesDataSource.usePiece(piece.id);
 				} else 
 				{
@@ -242,28 +238,22 @@ package view.screens
 		
 		private function bonusForClassic(event:Event):void
 		{
-			trace("BONUS");
-			//Animation
-			
 			this._displayBonusLabel.alpha = 1;
-			this._displayBonusLabel.x = this.actualWidth - this._displayBonusLabel.width - this._separatorX * 100;
-			this._displayBonusLabel.y = this.actualHeight - this._displayBonusLabel.height - this._separatorY * 10;
+			this._displayBonusLabel.x = this.actualWidth - this._displayBonusLabel.width - this._separatorX * 120;
+			this._displayBonusLabel.y = this.actualHeight - this._displayBonusLabel.height - this._separatorY * 20;
 			
 			const endTweenPosition = this._displayBonusLabel.y - this._displayBonusLabel.height;
-			TweenMax.to(this._displayBonusLabel, 0.8, { alpha:0, y:endTweenPosition } );
+			TweenMax.to(this._displayBonusLabel, 1.2, { alpha:0, y:endTweenPosition } );
 			
 		}
 		
 		private function initHUD():void
 		{
 				startTime();
-				//resetHUD();
 		}
 		
 		private function resetHUD():void
 		{
-			//this._textScore.text = "0";
-			//this._textPieces.text = "0";
 			this._textPiecesLabel.text = "Pieces left: 0";
 			this._textScoreLabel.text = "Score: 0";
 			gameTimer.stop();

@@ -1,6 +1,8 @@
 package view.game.pieces 
 {
 	import feathers.display.Image;
+	import flash.geom.Point;
+	import flash.sampler.NewObjectSample;
 	import starling.core.Starling;
 	import starling.display.Button;
 	import starling.display.DisplayObject;
@@ -49,6 +51,8 @@ package view.game.pieces
 			this._button = new Button(util.Assets.getAssetsTexture(this._pieceId.toString()));
 			this._button.addEventListener(Event.TRIGGERED, onTrigger);
 			this.addChild(_button);
+			
+			//this._burnParticle = new PDParticleSystem(Assets.getParticleXML("Burn"), Assets.getTexture("BurnParticleTexture"));
 		}
 		
 		public function get pieceId():int 
@@ -86,25 +90,26 @@ package view.game.pieces
 		public function burnPiece():void
 		{	
 			unselectPiece();
+			placed = false;
 			
-			//this._burnParticle = new PDParticleSystem(Assets.getParticleXML("Burn"), Assets.getTexture("BurnParticleTexture"));
-			//this._burnParticle.x = this.width / 2;
-			//this._burnParticle.y = this.height;
-			//addChild(this._burnParticle);
+			this._burnParticle = new PDParticleSystem(Assets.getParticleXML("Burn"), Assets.getTexture("BurnParticleTexture"));
+			this._burnParticle.x = this.width / 2;
+			this._burnParticle.y = this.height /4 * 3;
+			addChild(this._burnParticle);
+			setChildIndex(this._burnParticle, this.numChildren -1);
 			
-			//Starling.juggler.add(this._burnParticle);
-			//this._burnParticle.start();
-			TweenMax.to(this, 0.4, { alpha:0, onComplete: burnPieceComplete } );
+			Starling.juggler.add(this._burnParticle);
+			this._burnParticle.start();
+			TweenMax.to(this, 0.8, { alpha:0, onComplete: burnPieceComplete } );
 		}
 		
 		private function burnPieceComplete():void
 		{
 			this.x = -100;
 			this.y = -100;
-			this.placed = false;
 			this.visible = false;
-			//this._burnParticle.stop();
-			//removeChild(this._burnParticle);
+			this._burnParticle.stop();
+			removeChild(this._burnParticle);
 			//this._burnParticle = null;
 			dispatchEvent(new Event(PieceVisual.PIECE_BURNED));
 		}
@@ -126,6 +131,20 @@ package view.game.pieces
 			this.alpha = 1;
 			//this._pieceImage.color = Color.WHITE;
 			this._button.blendMode = "normal";
+		}
+		
+		override public function  hitTest(localPoint:Point, forTouch:Boolean = false):DisplayObject
+		{
+			if (forTouch && (!visible || !touchable)) return null;
+			if (placed == true)
+			{
+				if (getBounds(this).containsPoint(localPoint))			
+					return super.hitTest(localPoint, forTouch);
+				else
+					return null;
+			}		
+			else 
+				return null;
 		}
 	}
 

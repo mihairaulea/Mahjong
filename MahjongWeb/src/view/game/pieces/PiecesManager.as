@@ -194,10 +194,7 @@
 		}
 
 		private function requestSelectHandler(e:Event):void
-		{
-			
-			trace("requesst select handler"); 
-			
+		{	
 			noOfPiecesSelected++;
 			
 			if (noOfPiecesSelected < 2)

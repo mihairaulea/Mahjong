@@ -181,7 +181,7 @@ package view.screens
 			Starling.juggler.remove(particle2);
 			removeChild(particle);
 			removeChild(particle2);
-			this.onBackButton();
+			this.onMenuButton();
 		}
 		
 		private function onBackButton():void

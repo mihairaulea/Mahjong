@@ -32,7 +32,7 @@
     <path-element>E:\Proiecte\Games\MahjongGit\MahjongWeb\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
-  <default-frame-rate>60</default-frame-rate>
+  <default-frame-rate>30</default-frame-rate>
   <default-size>
     <width>480</width>
     <height>320</height>

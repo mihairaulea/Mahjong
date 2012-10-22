@@ -62,7 +62,6 @@
 		
 		public function piecesLeft():Boolean 
 		{
-			//usedPieces==156
 			if(usedPieces==156) return false;
 			else return true;
 		}
@@ -78,11 +77,13 @@
 		}
 		
 		public function usePiece(pieceId:String):void {
+			
 			usedPieces+=2;
 			for(var i:int=0;i<availablePieces.length;i++) {			
-				if(availablePieces[i].id == pieceId) {
-				availablePieces[i].noOfUnits -= 2;
-				if(availablePieces[i].noOfUnits == 0) availablePieces.splice(i,1);
+				if (availablePieces[i].id == pieceId) 
+				{
+					availablePieces[i].noOfUnits -= 2;
+					if (availablePieces[i].noOfUnits == 0) availablePieces.splice(i, 1);
 				}
 			}
 			

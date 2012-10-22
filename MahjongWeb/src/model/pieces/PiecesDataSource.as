@@ -12,6 +12,8 @@
 		private var noOfPieces:int=0;
 		private var usedPieces:int=0;
 
+		private var totalNumberOfPieces:int;
+		
 		public static function getInstance():PiecesDataSource
 		{
 			if (instance == null)
@@ -36,13 +38,19 @@
 			noOfPieces=0;
 			usedPieces=0;
 			initPieces();
+			
+			for (var i:int = 0; i < 10; i++)
+				piecesArray[i].noOfUnits = 4;
+			for (var j:int = 10; j < 18; j++)
+				piecesArray[j].noOfUnits = 2;
+			for (var k:int = 18; k < 43; k++)
+				piecesArray[k].noOfUnits = 4;
 		}
 		
 		public function test():void {
-			var totalNumberOfPieces:int=0;
-			for(var i:int=0;i<piecesArray.length;i++) {
-				totalNumberOfPieces += piecesArray[i].noOfUnits;
-			}
+			this.totalNumberOfPieces=0;
+			for (var i:int = 0; i < piecesArray.length; i++) 
+				this.totalNumberOfPieces += piecesArray[i].noOfUnits;
 		}
 		
 		public function getPiecesForDisplay():Array {

@@ -41,8 +41,8 @@ package view.screens
 		//private var _hintButton:Button;
 		private var _textPiecesLabel:ITextRenderer;
 		private var _textScoreLabel:ITextRenderer;
-		private var _textPieces:ITextRenderer;
-		private var _textScore:ITextRenderer;
+		//private var _textPieces:ITextRenderer;
+		//private var _textScore:ITextRenderer;
 		private var _textTime:ITextRenderer;
 		private var _bonusLabel:ITextRenderer;
 		private var _displayBonusLabel:FeathersControl;
@@ -88,16 +88,16 @@ package view.screens
 			this._resetButton.onRelease.add(resetButton_onRelease);
 			
 			this._textPiecesLabel = FeathersControl.defaultTextRendererFactory();
-			this._textPiecesLabel.text = "Pieces left: ";
+			this._textPiecesLabel.text = "Pieces left: 0";
 			
-			this._textPieces = FeathersControl.defaultTextRendererFactory();
-			this._textPieces.text = "0";
+			//this._textPieces = FeathersControl.defaultTextRendererFactory();
+			//this._textPieces.text = "0";
 			
 			this._textScoreLabel = FeathersControl.defaultTextRendererFactory();
-			this._textScoreLabel.text = "Score: ";
+			this._textScoreLabel.text = "Score: 0";
 			
-			this._textScore = FeathersControl.defaultTextRendererFactory();
-			this._textScore.text = "0";
+			//this._textScore = FeathersControl.defaultTextRendererFactory();
+			//this._textScore.text = "0";
 			
 			this._textTime = FeathersControl.defaultTextRendererFactory();
 			this._textTime.text = "Time: 0:00";
@@ -115,10 +115,10 @@ package view.screens
 			this._header.rightItems = new <DisplayObject>
 			[
 				DisplayObject(this._textPiecesLabel),
-				DisplayObject(this._textPieces),
+				//DisplayObject(this._textPieces),
 				DisplayObject(this._textTime),
 				DisplayObject(this._textScoreLabel),
-				DisplayObject(this._textScore),
+				//DisplayObject(this._textScore),
 				this._resetButton
 			];
 			
@@ -222,20 +222,20 @@ package view.screens
 			//HUD
 			this.resetHUD();
 			this.setPoints(piecesManager.points);
-			this._textPieces.text = piecesManager.noOfPieces.toString();
+			this._textPiecesLabel.text = "Pieces left: " + piecesManager.noOfPieces.toString();
 			//piecesManager.loadMoves(moves);
 		}
 		
 		private function piecesRemovedHandler(event:Event):void
 		{
-			this._textPieces.text = piecesManager.noOfPieces.toString();
+			this._textPiecesLabel.text = "Pieces left: " + piecesManager.noOfPieces.toString();
 			this.setPoints(piecesManager.getPoints( noOfSeconds ));
 			if (piecesManager.didWin() == true) 
 			{
 				gameWon();
-				this.gameData.score = this._textScore.text;
+				this.gameData.score = this.finalScore.toString();
 				this.gameData.time = this._textTime.text;
-				this.gameData.rank = BonusManager.getScoreBonusForScore(int(this._textScore.text)).toString();
+				this.gameData.rank = BonusManager.getStatForScore(this.finalScore);
 				dispatchEvent(new Event(ON_VICTORY));
 			}
 		}
@@ -262,8 +262,10 @@ package view.screens
 		
 		private function resetHUD():void
 		{
-			this._textScore.text = "0";
-			this._textPieces.text = "0";
+			//this._textScore.text = "0";
+			//this._textPieces.text = "0";
+			this._textPiecesLabel.text = "Pieces left: 0";
+			this._textScoreLabel.text = "Score: 0";
 			gameTimer.stop();
 			gameTimer.removeEventListener(TimerEvent.TIMER, timerTick);
 			noOfSeconds = 0;	
@@ -301,9 +303,7 @@ package view.screens
 			scoreTimer.start();
 			this.finalScore = pointsAmount;
 			
-			if (this._textScore.text != "")
-				currentScore = int(_textScore.text);
-			else
+			if (this._textScoreLabel.text == "Score: 0")
 				currentScore = 0;
 		}
 		
@@ -312,7 +312,7 @@ package view.screens
 			if (currentScore < finalScore) 
 			{
 				currentScore++;
-				this._textScore.text = String(currentScore);
+				this._textScoreLabel.text = "Score: " + String(currentScore);
 			}
 			else
 				scoreTimer.stop();

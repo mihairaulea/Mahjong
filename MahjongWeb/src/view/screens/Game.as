@@ -197,13 +197,7 @@ package view.screens
 				var piece:Piece = piecesDataSource.getRandomUsablePiece();				
 				if (piece != null)
 				{
-					var placeArray:Array = new Array();
-					placeArray = this._levelGenerator.placePiece(piece.id);
-					if (placeArray[0] != null || placeArray[1] != null)		
-					{
-						trace(piece.id, placeArray[0].x + " " + placeArray[0].y + " " + placeArray[0].z);
-						trace(placeArray[1].x+" "+placeArray[1].y+" "+placeArray[1].z);
-					}
+					this._levelGenerator.placePiece(piece.id);
 					piecesDataSource.usePiece(piece.id);
 				} else 
 				{

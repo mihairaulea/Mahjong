@@ -150,6 +150,13 @@ package view.screens
 				particle.start();
 				particle2.start();
 			}
+			
+			if (this._scoreLabel != null)
+			{
+				this._scoreLabel.text = "Score: " + gameData.score;
+				this._timeLabel.text = gameData.time;
+				this._rankLabel.text = "Rank: " + gameData.rank;
+			}
 		}
 		
 		public function set gameData(value:GameData):void

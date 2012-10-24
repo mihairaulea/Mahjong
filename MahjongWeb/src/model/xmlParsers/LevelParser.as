@@ -42,7 +42,8 @@
 		{
 			var layersList:XMLList = xmlData.child("layer");
 			
-			for each(var layer:XML in layersList) {
+			for each(var layer:XML in layersList) 
+			{
 				levelMatrix.addLayer(parseLayer(layer));
 			}
 			dispatchEvent(new Event(LevelParser.XML_PARSED));
@@ -50,7 +51,6 @@
 		
 		private function parseLayer(layer:XML):Array {
 			var rows:XMLList = layer.child("row");
-			//trace(rows.length()+" numarul de randuri din layer");
 			var layerArray:Array = new Array(rows.length());
 			var contor:int=0;
 			for each(var row:XML in rows) {

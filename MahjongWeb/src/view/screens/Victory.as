@@ -194,6 +194,7 @@ package view.screens
 		private function submitButton_onRelease(button:Button):void
 		{
 			stopParticles();
+			trace("submit score");
 		}
 		
 		private function onBackButton():void

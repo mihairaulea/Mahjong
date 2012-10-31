@@ -78,6 +78,11 @@ package view.screens
 			this._list.height = this.actualHeight - this._list.y;
 		}
 		
+		public function updateData():void
+		{
+			trace("update data here");
+		}
+		
 		public function updateList(array:Array):void
 		{
 			highscoresModel.addEventListener(HighscoresModel.HIGHSCORES_RETRIEVED, highscoresReceivedFromNetwork);

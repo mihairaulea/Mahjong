@@ -5,6 +5,7 @@ package view.util
 	import flash.errors.IllegalOperationError;
 	import starling.display.DisplayObject;
 	import view.screens.Game;
+	import view.screens.Highscores;
 	import view.screens.Victory;
 	
 	
@@ -62,6 +63,20 @@ package view.util
 			}
 			
 			(this._screenInstance as Victory).initVictory();
+			return this._screenInstance;
+		}
+		
+		internal function getHighScores():DisplayObject
+		{
+			if (this.initializer)
+			{
+				for (var property:String in this.initializer)
+				{
+					this._screenInstance[property] = this.initializer[property];
+				}
+			}
+			
+			(this._screenInstance as Highscores).updateData();
 			return this._screenInstance;
 		}
 		

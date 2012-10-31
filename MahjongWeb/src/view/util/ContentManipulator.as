@@ -97,6 +97,11 @@ package view.util
 				this._activeScreen = item.getVictory();
 				this._activeScreenID = id;
 			}
+			else if (id == "highscores")
+			{
+				this._activeScreen = item.getHighScores();
+				this._activeScreenID = id;
+			}
 			else
 			{
 				this._activeScreen = item.getScreen();

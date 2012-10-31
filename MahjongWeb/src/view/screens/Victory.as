@@ -54,6 +54,8 @@ package view.screens
 		
 		override protected function initialize():void
 		{
+			this.highscoresModel.addEventListener(HighscoresModel.HIGHSCORE_SENT, highscoreSentHandler);
+			
 			this._scoreLabel = FeathersControl.defaultTextRendererFactory();
 			this._scoreLabel.text = "Score: " + gameData.score;
 			this.addChild(DisplayObject(this._scoreLabel));
@@ -88,7 +90,7 @@ package view.screens
 			this._submitButton.validate();	
 			
 			this._messageLabel = FeathersControl.defaultTextRendererFactory();
-			this._messageLabel.text = "Score submitted! Congratulations";
+			this._messageLabel.text = "Submitting score...";
 			this.addChild(DisplayObject(this._messageLabel));
 			
 			this._header = new ScreenHeader();
@@ -196,7 +198,10 @@ package view.screens
 				this._scoreLabel.text = "Score: " + gameData.score;
 				this._timeLabel.text = gameData.time;
 				this._rankLabel.text = "Rank: " + gameData.rank;
+				this._messageLabel.text = "Submitting score...";
 				_displayMessageText.visible = false;
+				_displayMessageText.validate();
+				_displayMessageText.x = (this.actualWidth - _displayMessageText.width) * .5;
 				_submitButton.isEnabled = true;
 			}
 		}
@@ -239,9 +244,16 @@ package view.screens
 			else
 			{
 				highscoresModel.submitScore(this._selectedName, int(gameData.score));
-				_displayMessageText.visible = true;
 				_submitButton.isEnabled = false;
+				_displayMessageText.visible = true;
 			}
+		}
+		
+		private function highscoreSentHandler():void
+		{
+			_messageLabel.text = "Score submitted! Congratulations!";
+			_displayMessageText.validate();
+			_displayMessageText.x = (this.actualWidth - _displayMessageText.width) * .5;
 		}
 		
 		private function onBackButton():void

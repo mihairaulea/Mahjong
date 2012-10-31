@@ -13,6 +13,7 @@ package model.highscores
 		private static var allowInstance:Boolean = false;
 		
 		public static var HIGHSCORES_RETRIEVED:String = "highscoresRetrieved";
+		public static var HIGHSCORE_SENT:String = "highscoreSent";
 		public var highscoresArray :Array = new Array();
 		
 		public static function getInstance():HighscoresModel
@@ -49,6 +50,8 @@ package model.highscores
 		{
 			trace("score submited!!!!!  ");
 			trace(scoreSubmitResult);
+			
+			dispatchEvent(new Event(HighscoresModel.HIGHSCORE_SENT));
 		}
 		
 		public function retrieveTopScores()

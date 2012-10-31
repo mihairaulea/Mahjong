@@ -89,11 +89,9 @@ package view.screens
 		
 		private function highscoresReceivedFromNetwork(e:Event)
 		{
-			trace(_items, "SADASDAS");
 			this._items = highscoresModel.highscoresArray;
 			this._list.dataProvider = new ListCollection(_items);
 			this._list.invalidate();
-			this._list.validate();
 		}
 		
 		private function backButton_onRelease(button:Button):void

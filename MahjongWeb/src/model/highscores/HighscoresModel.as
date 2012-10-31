@@ -73,7 +73,7 @@ package model.highscores
 				object.username = (object[i].Player.username);
 				object.score = (object[i].Score.score);
 				*/
-				highscoresArray.push(object[i].Player.username+" :: "+object[i].Score.score);
+				highscoresArray.push({text:object[i].Player.username+" :: "+object[i].Score.score});
 			}
 		}
 		

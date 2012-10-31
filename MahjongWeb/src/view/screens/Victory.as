@@ -26,6 +26,7 @@ package view.screens
 		
 		private var _backButton:Button;
 		private var _menuButton:Button;
+		private var _submitButton:Button;
 		
 		private var _victoryFlag:Image;
 		private var _victoryFlag2:Image;
@@ -65,6 +66,12 @@ package view.screens
 			this._menuButton.label = "Main Menu";
 			this._menuButton.onRelease.add(menuButton_onRelease);
 			this._menuButton.validate();
+
+			this._submitButton = new Button();
+			this._submitButton.label = "Submit score";
+			this._submitButton.onRelease.add(submitButton_onRelease);
+			addChild(this._submitButton);
+			this._submitButton.validate();	
 			
 			this._header = new ScreenHeader();
 			this._header.title = "Victory!";
@@ -124,7 +131,10 @@ package view.screens
 			displayRankText.x = displayScoreText.x;
 			displayRankText.y = displayTimeText.y + displayTimeText.height + spacingY;
 			
-
+			trace(_submitButton.width);
+			this._submitButton.x = (this.actualWidth - _submitButton.width) * .5;
+			this._submitButton.y = displayRankText.y + displayTimeText.height + spacingY;
+			
 			this._victoryFlag.x = (this.actualWidth - maxWidth) / 2 - this._victoryFlag.width - spacingX * 5;
 			this._victoryFlag.y = 0;
 			
@@ -171,24 +181,19 @@ package view.screens
 		
 		private function backButton_onRelease(button:Button):void
 		{
-			particle.stop();
-			particle2.stop()
-			Starling.juggler.remove(particle);
-			Starling.juggler.remove(particle2);
-			removeChild(particle);
-			removeChild(particle2);
+			stopParticles();
 			this.onBackButton();
 		}
 		
 		private function menuButton_onRelease(button:Button):void
 		{
-			particle.stop();
-			particle2.stop()
-			Starling.juggler.remove(particle);
-			Starling.juggler.remove(particle2);
-			removeChild(particle);
-			removeChild(particle2);
+			stopParticles();
 			this.onMenuButton();
+		}
+		
+		private function submitButton_onRelease(button:Button):void
+		{
+			stopParticles();
 		}
 		
 		private function onBackButton():void
@@ -199,6 +204,16 @@ package view.screens
 		private function onMenuButton():void
 		{
 			this.dispatchEvent(new Event(ON_MENU));
+		}
+		
+		private function stopParticles():void
+		{
+			particle.stop();
+			particle2.stop()
+			Starling.juggler.remove(particle);
+			Starling.juggler.remove(particle2);
+			removeChild(particle);
+			removeChild(particle2);
 		}
 		
 	}

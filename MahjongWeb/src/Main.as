@@ -14,8 +14,6 @@ package
 	
 	import util.Constants;
 	
-	//test
-	import model.highscores.Highscores;
 	
 	public class Main extends Sprite 
 	{
@@ -38,8 +36,8 @@ package
 		private function loaderInfo_completeHandler(event:Event):void
 		{
 			// General properties
-			Starling.handleLostContext = true; // required on Android
-			Starling.multitouchEnabled = true; // mobile devices
+			//Starling.handleLostContext = true; // required on Android
+			//Starling.multitouchEnabled = true; // mobile devices
 			
 			// Debug stats
 			//this.stats = new Stats();
@@ -55,9 +53,7 @@ package
 		}
 		
 		private function stage_resizeHandler(event:Event):void
-		{		
-			var highscores:Highscores = Highscores.getInstance();
-			highscores.submitScore("mihai", 1234566);
+		{	
 			// Creating a suitable viewport
 			var screenWidth:int = stage.fullScreenWidth;
 			var screenHeight:int = stage.fullScreenHeight;

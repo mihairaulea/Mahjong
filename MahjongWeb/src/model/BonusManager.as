@@ -2,7 +2,8 @@
 	
 	public class BonusManager {		
 		
-		public function BonusManager() {
+		public function BonusManager() 
+		{
 			
 		}
 		

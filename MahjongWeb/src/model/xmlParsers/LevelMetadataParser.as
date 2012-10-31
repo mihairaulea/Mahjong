@@ -42,8 +42,8 @@
 				var levelItem:LevelSelectorItem = new LevelSelectorItem();
 				levelItem.levelName = (level.attribute("name"));
 				levelItem.levelCategory = (level.attribute("category"));
-				levelItem.levelXMLURL = (GameConstants.GAME_RESOURCES + level.attribute("url"));
-				levelItem.levelPrintscreenURL = (GameConstants.GAME_RESOURCES + level.attribute("printscreen"));
+				//levelItem.levelXMLURL = (GameConstants.GAME_RESOURCES + level.attribute("url"));
+				//levelItem.levelPrintscreenURL = (GameConstants.GAME_RESOURCES + level.attribute("printscreen"));
 				levelSelectorDataSource.addLevel(levelItem);
 			}
 			dispatchEvent(new Event(LevelMetadataParser.XML_PARSED));

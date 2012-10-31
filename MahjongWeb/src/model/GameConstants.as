@@ -3,9 +3,9 @@ package model {
 	public class GameConstants {
 		
 		
-		public static var GAME_RESOURCES:String = "E:\\Proiecte\\mahjong\\mahjong";
+		//public static var GAME_RESOURCES:String = "E:\\Proiecte\\mahjong\\mahjong";
 		
-		public static var MAHJONG_CLASSIC_BONUS:int = 250;
+		public static var MAHJONG_CLASSIC_BONUS:int = 10;
 		
 		public static var TIME_BONUS_0:int = 1700;
 		public static var TIME_BONUS_1:int = 1000;

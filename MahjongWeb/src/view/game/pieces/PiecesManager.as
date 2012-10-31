@@ -13,6 +13,8 @@
 	import view.game.pieces.*;
 	import model.levelGenerator.PointWherePlaced;
 	import flash.utils.ByteArray;
+	
+	import model.GameConstants;
 
 	public class PiecesManager extends Sprite
 	{		
@@ -96,8 +98,15 @@
 
 		public function getPoints(timeRemoved:int):int
 		{
-			points += 21 + 360 * 1 / (1.12 * timeRemoved);
+			var maxPredictedTime:int = 40;
+			var penalty : int = 20;
+			points += 20 - penalty *  sigmoid( timeRemoved / maxPredictedTime);
 			return points;
+		}
+		
+		private function sigmoid(x:Number):Number
+		{
+			return 1 / ( 1 + Math.pow(Math.E, -x));
 		}
 
 		public function getHint():void
@@ -212,7 +221,7 @@
 					soundManager.playSelectSound();
 					if (arePiecesFree(selectedPieces[0],selectedPieces[1]))
 					{
-						rewardPointForFreePos = 320;
+						rewardPointForFreePos = GameConstants.MAHJONG_CLASSIC_BONUS;
 						dispatchEvent(new Event(PiecesManager.BONUS_FOR_CLASSIC));
 					}
 					else

@@ -99,7 +99,7 @@ package view.screens
 			var bonusFormat = new TextFormat("trajanPro", 24, 0xC52126, true);
 			this._bonusLabel.embedFonts = true;
 			this._bonusLabel.textFormat = bonusFormat;
-			this._bonusLabel.text = "Bonus +250";
+			this._bonusLabel.text = "Bonus +" +String( GameConstants.MAHJONG_CLASSIC_BONUS );
 			
 			this._header = new ScreenHeader();
 			this._header.title = "";
@@ -238,7 +238,6 @@ package view.screens
 			
 			const endTweenPosition = this._displayBonusLabel.y - this._displayBonusLabel.height;
 			TweenMax.to(this._displayBonusLabel, 1.2, { alpha:0, y:endTweenPosition } );
-			
 		}
 		
 		private function initHUD():void
@@ -295,7 +294,7 @@ package view.screens
 		{
 			if (currentScore < finalScore) 
 			{
-				currentScore++;
+				currentScore += 1;
 				this._textScoreLabel.text = "Score: " + String(currentScore);
 			}
 			else

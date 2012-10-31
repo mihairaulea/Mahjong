@@ -9,6 +9,7 @@ package
 	import flash.display.StageScaleMode;
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
+	import model.Highscores;
 	import view.screens.Splash;
 	
 	import starling.core.Starling;
@@ -42,10 +43,15 @@ package
 		
 		private function initSplash(e:Event):void
 		{
+			var highscores:Highscores = Highscores.getInstance();
+			highscores.submitScore("mihai", 1234566);
+			
+			/*
 			this.removeEventListener(Event.ADDED_TO_STAGE, initSplash);
 			
 			splash = new Splash(loaderInfo_completeHandler, 3000, Splash.SCALE_MODE_NONE);
 			addChild(splash);
+			*/
 		}
 		
 		//private function loaderInfo_completeHandler(event:Event):void

@@ -8,6 +8,8 @@ package view.screens
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 
+	import model.highscores.HighscoresModel;
+	
 	public class Highscores extends Screen
 	{
 		private static const ON_BACK:String = "onBack";
@@ -21,6 +23,8 @@ package view.screens
 		private var _backButton:Button;
 		
 		private var _items:Array;
+		
+		var highscoresModel:HighscoresModel = HighscoresModel.getInstance();
 		
 		public function Highscores() 
 		{
@@ -72,7 +76,6 @@ package view.screens
 			this._list.y = this._header.height;
 			this._list.width = this.actualWidth;
 			this._list.height = this.actualHeight - this._list.y;
-			
 		}
 		
 		public function updateList(array:Array):void

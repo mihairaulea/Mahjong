@@ -14,6 +14,7 @@ package
 	
 	import util.Constants;
 	
+	
 	public class Main extends Sprite 
 	{
 		private var starling:Starling;
@@ -52,7 +53,7 @@ package
 		}
 		
 		private function stage_resizeHandler(event:Event):void
-		{
+		{	
 			// Creating a suitable viewport
 			var screenWidth:int = stage.fullScreenWidth;
 			var screenHeight:int = stage.fullScreenHeight;

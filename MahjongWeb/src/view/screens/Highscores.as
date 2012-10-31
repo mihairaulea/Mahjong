@@ -85,7 +85,13 @@ package view.screens
 		
 		public function updateList(array:Array):void
 		{
-			this._items = array;
+			highscoresModel.addEventListener(HighscoresModel.HIGHSCORES_RETRIEVED, highscoresReceivedFromNetwork);
+			highscoresModel.retrieveTopScores();
+		}
+		
+		private function highscoresReceivedFromNetwork(e:Event)
+		{
+			this._items = highscoresModel.highscoresArray;
 			this._list.invalidate();
 		}
 		

@@ -14,6 +14,9 @@ package
 	
 	import util.Constants;
 	
+	//test
+	import model.highscores.Highscores;
+	
 	public class Main extends Sprite 
 	{
 		private var starling:Starling;
@@ -39,8 +42,8 @@ package
 			Starling.multitouchEnabled = true; // mobile devices
 			
 			// Debug stats
-			this.stats = new Stats();
-			this.addChild(stats);
+			//this.stats = new Stats();
+			//this.addChild(stats);
 			
 			// Init starling
 			this.starling = new Starling(MainInterface, this.stage);
@@ -52,7 +55,9 @@ package
 		}
 		
 		private function stage_resizeHandler(event:Event):void
-		{
+		{		
+			var highscores:Highscores = Highscores.getInstance();
+			highscores.submitScore("mihai", 1234566);
 			// Creating a suitable viewport
 			var screenWidth:int = stage.fullScreenWidth;
 			var screenHeight:int = stage.fullScreenHeight;

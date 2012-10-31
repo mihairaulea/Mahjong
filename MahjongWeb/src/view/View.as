@@ -23,6 +23,8 @@ package view
 		private static const CREDITS:String = "credits";
 		private static const LEVEL_BROWSER:String = "levelBrowser";
 		private static const VICTORY:String = "victory";
+		private static const HIGHSCORES:String = "highscores";
+		private static const ACHIEVMENTS:String = "achievments";
 		
 		private var theme:MahjongTheme;
 		private var transitionManager:ContentTransition;
@@ -92,6 +94,18 @@ package view
 			},
 			{
 				gameData: this._gameData
+			}
+			));
+			
+			this.navigator.addScreen(HIGHSCORES, new ContentRequester(Highscores,
+			{
+				onBack: FIRST_SCREEN
+			}
+			));
+			
+			this.navigator.addScreen(ACHIEVMENTS, new ContentRequester(Achievments,
+			{
+				onBack: FIRST_SCREEN
 			}
 			));
 			

@@ -76,7 +76,7 @@ package view.util
 				}
 			}
 			
-			(this._screenInstance as Highscores).updateData();
+			(this._screenInstance as Highscores).updateList();
 			return this._screenInstance;
 		}
 		

@@ -627,10 +627,10 @@ package
 
 			input.minWidth = input.minHeight = 60 * this.scale;
 			input.minTouchWidth = input.minTouchHeight = 88 * this.scale;
-			input.paddingTop = input.paddingBottom = 12 * this.scale;
-			input.paddingLeft = input.paddingRight = 16 * this.scale;
-			input.stageTextProperties.fontFamily = "Helvetica";
-			input.stageTextProperties.fontSize = 64 * this.scale;
+			input.paddingTop = input.paddingBottom = 6 * this.scale;
+			input.paddingLeft = input.paddingRight = 6 * this.scale;
+			input.stageTextProperties.fontFamily = "trajanPro";
+			input.stageTextProperties.fontSize = 16 * this.scale;
 			input.stageTextProperties.color = DARK_TEXT_COLOR;
 		}
 		

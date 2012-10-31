@@ -57,7 +57,8 @@ package view
 				onLevelBrowser: LEVEL_BROWSER,
 				onOptions: OPTIONS,
 				onHowTo: HOW_TO,
-				onCredits: CREDITS
+				onCredits: CREDITS,
+				onHighscores: HIGHSCORES
 			}));
 						
 			this.navigator.addScreen(LEVEL_BROWSER, new ContentRequester(LevelBrowser,

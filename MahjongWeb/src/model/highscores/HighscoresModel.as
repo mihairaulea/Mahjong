@@ -2,6 +2,7 @@ package model.highscores
 {
 	
 	import com.scoreoid.ScoreoidEncryption;
+	import starling.events.Event;
 	import starling.events.EventDispatcher;
 	import com.adobe.serialization.json.JSONCustom;
 	
@@ -75,6 +76,8 @@ package model.highscores
 				*/
 				highscoresArray.push(object[i].Player.username+" :: "+object[i].Score.score);
 			}
+			
+			dispatchEvent(new Event(HighscoresModel.HIGHSCORES_RETRIEVED));
 		}
 		
 		

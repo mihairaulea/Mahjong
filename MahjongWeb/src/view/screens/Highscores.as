@@ -43,6 +43,7 @@ package view.screens
 			this._list.isSelectable = this.isSelectable;
 			this._list.scrollerProperties.hasElasticEdges = this.hasElasticEdges;
 			this._list.itemRendererProperties.labelField = "text";
+			this._list.itemRendererProperties.horizontalAlign = "center";
 			this._list.onChange.add(list_onChange);
 			addChildAt(this._list, 0);
 			
@@ -72,6 +73,12 @@ package view.screens
 			this._list.width = this.actualWidth;
 			this._list.height = this.actualHeight - this._list.y;
 			
+		}
+		
+		public function updateList(array:Array):void
+		{
+			this._items = array;
+			this._list.invalidate();
 		}
 		
 		private function backButton_onRelease(button:Button):void

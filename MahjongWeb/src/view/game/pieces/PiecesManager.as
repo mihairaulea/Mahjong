@@ -17,7 +17,7 @@
 	import model.GameConstants;
 
 	public class PiecesManager extends Sprite
-	{		
+	{	
 		private var piecesArray:Array = new Array();
 		private var _backboneArray:BackboneArray;
 		
@@ -41,8 +41,8 @@
 		public static var BONUS_FOR_CLASSIC:String = "bonusForClassic";
 		
 		private var soundManager:SoundManager = SoundManager.getInstance();
-
-		public function PiecesManager()
+		
+		public function PiecesManager():void
 		{
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -51,13 +51,12 @@
 		private function onAddedToStage(event:Event):void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			this._backboneArray = new BackboneArray();
+			this._backboneArray = BackboneArray.getInstance();
 			addChild(_backboneArray);
 		}
 		
 		public function init(genLevel:Array):void
 		{	
-			//_backboneArray.reset();
 			this.piecesArray = genLevel;
 			
 			var depth:int = 0;
@@ -308,15 +307,12 @@
 			noOfPieces = 0;
 			
 			piecesArray.splice(0,piecesArray.length);
-			//piecesArray = new Array();
 			
 			noOfPiecesSelected = 0;
 			selectedPieces.splice(0, selectedPieces.length);
 			noOfPiecesPlaced = 0;
 		    
-			//moves.splice(0, moves.length);
 			movesIndex = 0;
-
 			points = 0;
 		}
 		
@@ -334,7 +330,6 @@
 			return result;
 		}
 
-	
 	}
 	
 }

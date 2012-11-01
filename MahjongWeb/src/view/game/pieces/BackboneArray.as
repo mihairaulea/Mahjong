@@ -7,6 +7,8 @@ package view.game.pieces
 	
 	public class BackboneArray extends Sprite
 	{
+		private static var instance:BackboneArray;
+		
 		private const _piecesCount:int = 43;
 		private const _pairCount:int = 30;
 		
@@ -17,10 +19,19 @@ package view.game.pieces
 		private var _inactivePieces:Sprite;
 		private var _activePieces:Sprite;
 		
-		public function BackboneArray() 
+		public function BackboneArray(p_key:SingletonBlocker):void
 		{
-			super();
-			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			if (p_key == null)
+				throw new Error("Instantiation failed: Use BackboneArray.getInstance() instead of new.");
+			else
+				this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		}
+		
+		public static function getInstance():BackboneArray
+		{
+			if (instance == null)
+				instance = new BackboneArray(new SingletonBlocker());
+			return instance;
 		}
 		
 		private function onAddedToStage(event:Event):void
@@ -99,3 +110,5 @@ package view.game.pieces
 	}
 
 }
+
+internal class SingletonBlocker { };

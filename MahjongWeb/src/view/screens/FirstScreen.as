@@ -23,18 +23,18 @@ package view.screens
 		private static const LABELS:Vector.<String> = new <String>
 		[
 			"Play",
+			"Multiplayer",
 			"High Scores",
 			"Options",
-			"How to play",
 			"Credits"
 		];
 		
 		private static const EVENTS:Vector.<String> = new <String>
 		[
 			"onLevelBrowser",
+			"onMultiplayer",
 			"onHighscores",
 			"onOptions",
-			"onHowTo",
 			"onCredits"
 		];
 		

@@ -88,6 +88,7 @@ package view.game.pieces
 		public function burnPiece():void
 		{	
 			unselectPiece();
+			this.placed = false;
 			
 			//this._burnParticle = new PDParticleSystem(Assets.getParticleXML("Burn"), Assets.getTexture("BurnParticleTexture"));
 			//this._burnParticle.x = this.width / 2;
@@ -103,7 +104,6 @@ package view.game.pieces
 		{
 			this.x = -100;
 			this.y = -100;
-			this.placed = false;
 			this.visible = false;
 			//this._burnParticle.stop();
 			//removeChild(this._burnParticle);
@@ -139,10 +139,14 @@ package view.game.pieces
 				localPoint.x -= 17;
 				localPoint.y -= 17;
 			}
-			
-			if (getBounds(this).containsPoint(localPoint))			
+			if (placed == true)
 			{
-				return this.getChildAt(this.getChildIndex(_button));
+				if (getBounds(this).containsPoint(localPoint))			
+				{
+					return this.getChildAt(this.getChildIndex(_button));
+				}
+				else
+					return null;
 			}
 			else
 				return null;

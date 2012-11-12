@@ -33,7 +33,6 @@ package
 			this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
 			init();
-			
 		}
 		
 		private function init():void

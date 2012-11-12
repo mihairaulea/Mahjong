@@ -8,11 +8,15 @@ package
 	import flash.display.StageScaleMode;
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
+	import model.highscores.HighscoresModel;
 	
 	import starling.core.Starling;
 	import net.hires.debug.Stats;
 	
 	import util.Constants;
+	
+	//test
+	import model.network.*;
 	
 	
 	public class Main extends Sprite 
@@ -23,7 +27,7 @@ package
 		public function Main():void 
 		{
 			// General properties
-			
+			/*
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			
@@ -31,6 +35,11 @@ package
 			
 			// Entry point
 			this.loaderInfo.addEventListener(Event.COMPLETE, loaderInfo_completeHandler);
+			*/
+			
+			var network:Network = new Network();
+			network.setGuestLogin();
+			network.init();
 		}
 		
 		private function loaderInfo_completeHandler(event:Event):void

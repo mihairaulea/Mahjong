@@ -43,7 +43,7 @@ package model.highscores
 			requestObject.score = score;
 			requestObject.username = username;
 			
-			scoreoidCommunication.sendData("https://www.scoreoid.com/api/getScores", scoreSubmited, requestObject);
+			scoreoidCommunication.sendData("https://www.scoreoid.com/api/createScore", scoreSubmited, requestObject);
 		}
 		
 		private function scoreSubmited(scoreSubmitResult:String)
@@ -70,6 +70,8 @@ package model.highscores
 			highscoresArray.splice(0, highscoresArray.length);
 			
 			var object:Array = (JSONCustom.decode(scoreResults)) as Array;
+			if (object != null)
+			{
 			for (var i:int = 0; i < object.length; i++)
 			{
 				/*
@@ -79,7 +81,7 @@ package model.highscores
 				*/
 				highscoresArray.push(object[i].Player.username+" :: "+object[i].Score.score);
 			}
-			
+			}
 			dispatchEvent(new Event(HighscoresModel.HIGHSCORES_RETRIEVED));
 		}
 		

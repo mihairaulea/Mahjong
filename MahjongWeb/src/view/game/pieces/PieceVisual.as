@@ -38,6 +38,9 @@ package view.game.pieces
 		
 		private var _burnParticle:PDParticleSystem;
 		
+		// to send over the network !!!! MUST BE SET !!!!
+		public var pieceUniqueId:int = -1;
+		
 		public function PieceVisual(pieceType:int) 
 		{
 			super();

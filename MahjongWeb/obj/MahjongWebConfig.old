@@ -16,20 +16,25 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
+<<<<<<< HEAD
+      <value>'11/10/2012'</value>
+=======
       <value>'11/1/2012'</value>
+>>>>>>> 417e17360625910b9a001f716d8d3cf3b4f748e2
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>E:\Proiecte\Games\MahjongGit\MahjongWeb\src</path-element>
+      <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>E:\Proiecte\Games\MahjongGit\MahjongWeb\lib\as3-signals-v0.8.swc</path-element>
-      <path-element>E:\Proiecte\Games\MahjongGit\MahjongWeb\lib\sounds.swc</path-element>
+      <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\lib\as3-signals-v0.8.swc</path-element>
+      <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\lib\sounds.swc</path-element>
+      <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\lib\SFS2X_API_AS3.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>E:\Proiecte\Games\MahjongGit\MahjongWeb\src\Main.as</path-element>
+    <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

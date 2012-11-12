@@ -1,6 +1,6 @@
 package view.game.pieces 
 {
-	import flash.sampler.NewObjectSample;
+	
 	import model.levelGenerator.PointWherePlaced;
 	import starling.display.Sprite;
 	import starling.events.Event;

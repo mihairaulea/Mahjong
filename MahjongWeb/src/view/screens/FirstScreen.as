@@ -23,6 +23,7 @@ package view.screens
 		private static const LABELS:Vector.<String> = new <String>
 		[
 			"Play",
+			"High Scores",
 			"Options",
 			"How to play",
 			"Credits"
@@ -31,6 +32,7 @@ package view.screens
 		private static const EVENTS:Vector.<String> = new <String>
 		[
 			"onLevelBrowser",
+			"onHighscores",
 			"onOptions",
 			"onHowTo",
 			"onCredits"
@@ -53,6 +55,7 @@ package view.screens
 				var event:String = EVENTS[i];
 				var button:Button = new Button();
 				button.label = label;
+				button.height = 50;
 				this.triggerSignalOnButtonRelease(button, event);
 				addChild(button);
 				this._buttons.push(button);

@@ -33,13 +33,17 @@ package view.screens
 		
 		override protected function initialize():void
 		{
+			highscoresModel.addEventListener(HighscoresModel.HIGHSCORES_RETRIEVED, highscoresReceivedFromNetwork);
 			_items = new Array();
+			
+			// Debug
+			/*
 			for(var i:int = 0; i < 100; i++)
 			{
 				var item:Object = {text: "Item " + (i + 1).toString()};
 				_items.push(item);
 			}
-			
+			*/
 			
 			this._list = new List();
 			this._list.dataProvider = new ListCollection(_items);
@@ -78,20 +82,15 @@ package view.screens
 			this._list.height = this.actualHeight - this._list.y;
 		}
 		
-		public function updateData():void
+		public function updateList():void
 		{
-			trace("update data here");
-		}
-		
-		public function updateList(array:Array):void
-		{
-			highscoresModel.addEventListener(HighscoresModel.HIGHSCORES_RETRIEVED, highscoresReceivedFromNetwork);
 			highscoresModel.retrieveTopScores();
 		}
 		
 		private function highscoresReceivedFromNetwork(e:Event)
 		{
 			this._items = highscoresModel.highscoresArray;
+			this._list.dataProvider = new ListCollection(_items);
 			this._list.invalidate();
 		}
 		

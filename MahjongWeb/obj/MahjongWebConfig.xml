@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'10/31/2012'</value>
+      <value>'11/12/2012'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
@@ -26,6 +26,7 @@
     <library-path append="true">
       <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\lib\as3-signals-v0.8.swc</path-element>
       <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\lib\sounds.swc</path-element>
+      <path-element>C:\GeekVillageGames\Mahjong\MahjongWeb\lib\SFS2X_API_AS3.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

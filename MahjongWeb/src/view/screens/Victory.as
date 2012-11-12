@@ -3,9 +3,11 @@ package view.screens
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	import feathers.controls.ScreenHeader;
+	import feathers.controls.TextInput;
 	import feathers.core.FeathersControl;
 	import feathers.core.ITextRenderer;
 	import feathers.display.Image;
+	import model.highscores.HighscoresModel;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -28,6 +30,11 @@ package view.screens
 		private var _menuButton:Button;
 		private var _submitButton:Button;
 		
+		private var _nameField:TextInput;
+		private var _selectedName:String = "";
+		private var _messageLabel:ITextRenderer;
+		private var _displayMessageText:FeathersControl;
+		
 		private var _victoryFlag:Image;
 		private var _victoryFlag2:Image;
 		
@@ -38,6 +45,8 @@ package view.screens
 		private var particle:PDParticleSystem;
 		private var particle2:PDParticleSystem;
 		
+		private var highscoresModel:HighscoresModel = HighscoresModel.getInstance();
+		
 		public function Victory() 
 		{
 			super();
@@ -45,6 +54,8 @@ package view.screens
 		
 		override protected function initialize():void
 		{
+			this.highscoresModel.addEventListener(HighscoresModel.HIGHSCORE_SENT, highscoreSentHandler);
+			
 			this._scoreLabel = FeathersControl.defaultTextRendererFactory();
 			this._scoreLabel.text = "Score: " + gameData.score;
 			this.addChild(DisplayObject(this._scoreLabel));
@@ -67,11 +78,20 @@ package view.screens
 			this._menuButton.onRelease.add(menuButton_onRelease);
 			this._menuButton.validate();
 
+			this._nameField = new TextInput();
+			this._nameField.text = "Enter your name here!";
+			this._nameField.onChange.add(nameField_onChange);
+			this._nameField.validate();
+			
 			this._submitButton = new Button();
 			this._submitButton.label = "Submit score";
 			this._submitButton.onRelease.add(submitButton_onRelease);
 			addChild(this._submitButton);
 			this._submitButton.validate();	
+			
+			this._messageLabel = FeathersControl.defaultTextRendererFactory();
+			this._messageLabel.text = "Submitting score...";
+			this.addChild(DisplayObject(this._messageLabel));
 			
 			this._header = new ScreenHeader();
 			this._header.title = "Victory!";
@@ -122,6 +142,9 @@ package view.screens
 			const displayRankText:FeathersControl = FeathersControl(this._rankLabel);
 			displayRankText.validate();
 			
+			_displayMessageText = FeathersControl(this._messageLabel);
+			_displayMessageText.validate();
+			
 			const maxWidth:Number = Math.max(displayScoreText.width, displayTimeText.width, displayRankText.width);
 			
 			displayScoreText.x = (this.actualWidth - maxWidth) / 2;
@@ -131,9 +154,18 @@ package view.screens
 			displayRankText.x = displayScoreText.x;
 			displayRankText.y = displayTimeText.y + displayTimeText.height + spacingY;
 			
-			trace(_submitButton.width);
+			this._nameField.width = this._submitButton.width;
+			this._nameField.height = 32;
+			this._nameField.x = (this.actualWidth - this._nameField.width) * .5;
+			this._nameField.y = displayRankText.y + displayTimeText.height + spacingY;
+			addChild(this._nameField);
+			
 			this._submitButton.x = (this.actualWidth - _submitButton.width) * .5;
-			this._submitButton.y = displayRankText.y + displayTimeText.height + spacingY;
+			this._submitButton.y = this._nameField.y + this._nameField.height + spacingY;
+			
+			_displayMessageText.visible = false;
+			_displayMessageText.x = (this.actualWidth - _displayMessageText.width) * .5;
+			_displayMessageText.y = this._submitButton.y + this._submitButton.height + spacingY;
 			
 			this._victoryFlag.x = (this.actualWidth - maxWidth) / 2 - this._victoryFlag.width - spacingX * 5;
 			this._victoryFlag.y = 0;
@@ -166,6 +198,11 @@ package view.screens
 				this._scoreLabel.text = "Score: " + gameData.score;
 				this._timeLabel.text = gameData.time;
 				this._rankLabel.text = "Rank: " + gameData.rank;
+				this._messageLabel.text = "Submitting score...";
+				_displayMessageText.visible = false;
+				_displayMessageText.validate();
+				_displayMessageText.x = (this.actualWidth - _displayMessageText.width) * .5;
+				_submitButton.isEnabled = true;
 			}
 		}
 		
@@ -191,10 +228,32 @@ package view.screens
 			this.onMenuButton();
 		}
 		
-		private function submitButton_onRelease(button:Button):void
+		private function nameField_onChange(textInput:TextInput):void
 		{
-			stopParticles();
-			trace("submit score");
+			if (this._nameField.text != "" && this._nameField.text != "Enter you name here!" 
+			 && this._nameField.text != "Please enter a name!")
+				this._selectedName = this._nameField.text;
+			else
+				this._selectedName = "";
+		}
+		
+		private function submitButton_onRelease(button:Button):void
+		{	
+			if (this._selectedName == "")
+				this._nameField.text = "Please enter a name!";
+			else
+			{
+				highscoresModel.submitScore(this._selectedName, int(gameData.score));
+				_submitButton.isEnabled = false;
+				_displayMessageText.visible = true;
+			}
+		}
+		
+		private function highscoreSentHandler():void
+		{
+			_messageLabel.text = "Score submitted! Congratulations!";
+			_displayMessageText.validate();
+			_displayMessageText.x = (this.actualWidth - _displayMessageText.width) * .5;
 		}
 		
 		private function onBackButton():void

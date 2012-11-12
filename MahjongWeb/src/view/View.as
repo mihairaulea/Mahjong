@@ -25,6 +25,7 @@ package view
 		private static const VICTORY:String = "victory";
 		private static const HIGHSCORES:String = "highscores";
 		private static const ACHIEVMENTS:String = "achievments";
+		private static const GAME_MULTIPLAYER:String = "gameMultiplayer";
 		
 		private var theme:MahjongTheme;
 		private var transitionManager:ContentTransition;
@@ -56,7 +57,7 @@ package view
 			{
 				onLevelBrowser: LEVEL_BROWSER,
 				onOptions: OPTIONS,
-				onHowTo: HOW_TO,
+				onMultiplayer: GAME_MULTIPLAYER,
 				onCredits: CREDITS,
 				onHighscores: HIGHSCORES
 			}));
@@ -95,6 +96,13 @@ package view
 			},
 			{
 				gameData: this._gameData
+			}
+			));
+			
+			this.navigator.addScreen(GAME_MULTIPLAYER, new ContentRequester(GameMultiplayer,
+			{
+				onLeave: FIRST_SCREEN,
+				onVictory: VICTORY
 			}
 			));
 			

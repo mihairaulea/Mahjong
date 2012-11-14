@@ -9,7 +9,6 @@ package model.multiplayer
 		public function LayoutsData() { }
 		
 		private static var layoutArray:Array = new Array();
-		private static var randomLayout:Array = new Array();
 		private static var intermediateLayout:Array = new Array();
 		private static var centerLayout:Array = new Array();
 		private static var cornersLayout:Array = new Array();
@@ -27,13 +26,6 @@ package model.multiplayer
 			if (init == false)
 			{
 				init = true;
-					
-				randomLayout = [
-					new PointWherePlaced(1, 2, 2),
-					new PointWherePlaced(1, 3, 3),
-					new PointWherePlaced(2, 2, 2),
-					new PointWherePlaced(2, 3, 3)
-				];
 				
 				centerLayout = [
 					new PointWherePlaced(0, 5, 7),
@@ -98,10 +90,14 @@ package model.multiplayer
 					new PointWherePlaced(0, 7, 16),					
 					new PointWherePlaced(0, 7, 17),
 					new PointWherePlaced(0, 6, 16),
-					new PointWherePlaced(0, 6, 17)
+					new PointWherePlaced(0, 6, 17),
+					new PointWherePlaced(0, 5, 7),
+					new PointWherePlaced(0, 4, 8),
+					new PointWherePlaced(0, 3, 9),
+					new PointWherePlaced(0, 2, 10)
 				];
 				
-				layoutArray.push(randomLayout, centerLayout, intermediateLayout, cornersLayout);
+				layoutArray.push(centerLayout, intermediateLayout, cornersLayout);
 			}
 		}
 		

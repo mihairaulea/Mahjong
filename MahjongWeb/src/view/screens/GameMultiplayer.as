@@ -97,8 +97,11 @@ package view.screens
 			
 			// Add networking events
 			networkCommunication = NetworkCommunication.getInstance();
-			networkCommunication.addEventListener(NetworkCommunication.START_GAME, opponentFoundHandler);
+			networkCommunication.addEventListener(NetworkCommunication.START_GAME, startGame);
 			networkCommunication.addEventListener(NetworkCommunication.NEW_WAVE, newWaveHandler);
+			networkCommunication.addEventListener(NetworkCommunication.OPPONENT_FOUND, opponentFoundHandler);
+			networkCommunication.addEventListener(NetworkCommunication.CONNECTION_STARTED, isConnectedHandler);
+			networkCommunication.addEventListener(NetworkCommunication.TIMER_TICK, updateHUD);
 		}
 		
 		override protected function draw():void
@@ -136,6 +139,7 @@ package view.screens
 		public function startConnection():void
 		{
 			// Try to connect to the server here
+			networkCommunication.connectToServer();
 		}
 		
 		private function isConnectedHandler(e:Event):void
@@ -155,7 +159,12 @@ package view.screens
 			this._connectionLabel.validate();
 			this._displayConnectionLabel.x = (this.actualWidth - this._displayConnectionLabel.width) * .5;
 			
-			TweenMax.to(this._displayConnectionLabel, 1, { alpha:0, onComplete:startGame } );
+			TweenMax.to(this._displayConnectionLabel, 1, { alpha:0, onComplete: readyHandler } );
+		}
+		
+		private function readyHandler():void
+		{
+			networkCommunication.startGame();
 		}
 		
 		private function startGame():void
@@ -174,7 +183,6 @@ package view.screens
 			var testLayout:int = 1;
 			
 			piecesManager.placeWave(testArray, testLayout);
-			newWaveHandler(null);
 		}
 		
 		public function newWaveHandler(e:Event):void
@@ -189,12 +197,21 @@ package view.screens
 				testArray.push(pv1);
 			}
 			
-			piecesManager.placeWave(testArray, 2);
+			var testLayout:int = Math.floor(Math.random() * 3);
+			
+			piecesManager.placeWave(testArray, testLayout);
 		}
 		
 		public function updateHUD():void
 		{
+			// Update time
+			var minutes:int = Math.floor(networkCommunication.secondsLeft / 60);
+			var leftSeconds:int = networkCommunication.secondsLeft % 60;
 			
+			if (leftSeconds < 10) 
+				this._textTime.text = "Time: " + minutes + ":0" + leftSeconds;
+			else
+				this._textTime.text = "Time: " + minutes + ":" + leftSeconds;
 		}
 		
 		private function pieceBurnedHandler(e:Event):void

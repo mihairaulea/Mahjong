@@ -131,6 +131,12 @@ package view.multiplayer
 		{
 			PieceVisual(_piecesArray[pieceId]).selectPiece();
 		}
+		
+		public function unselectPieces(piecesIds:Array):void
+		{
+			for each(var pv:PieceVisual in piecesIds)
+				pv.unselectPiece();
+		}
 	}
 
 }

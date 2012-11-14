@@ -302,17 +302,17 @@ package view.screens
 		
 		private function pieceSelectedHandler(e:Event):void
 		{
-			
+			piecesManager.selectPiece(e.data);
 		}
 		
 		private function piecesUnselectedHandler(e:Event):void
 		{
-			
+			piecesManager.unselectPieces(e.data);
 		}
 		
 		private function piecesBurnedHandler(e:Event):void
 		{
-			
+			piecesManager.burnPieces(e.data);
 		}
 		
 	}

@@ -78,7 +78,7 @@ package model.network
 		{
 			trace(network.gameMap);
 			trace(network.waveNumber + " wave number");
-			this.dispatchEvent(new starling.events.Event(NEW_WAVE, false, network.gameMap));
+			this.dispatchEvent(new starling.events.Event(NEW_WAVE, false, { array: network.gameMap, layout: network.gameMap } ));
 		}
 		
 		private function gameTickReceived(e:flash.events.Event):void

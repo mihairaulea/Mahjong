@@ -212,38 +212,23 @@ package view.screens
 			//networkCommunication.startGame();
 		}
 		
+		/*
 		private function startGame():void
 		{
 			// Game will now start
 			updateHUD();
-			var testArray:Array = new Array();
 			
-			for (var i:int = 0; i < 16; i++)
-			{
-				var pv1:PieceVisual = new PieceVisual(1);
-				pv1.pieceUniqueId = i;
-				testArray.push(pv1);
-			}
+			var testLayout:int = e.data.layout % 3;;
 			
-			var testLayout:int = 1;
-			
-			piecesManager.placeWave(testArray, testLayout);
+			piecesManager.placeWave(e.data.array, layout);
 		}
+		*/
 		
 		public function newWaveHandler(e:Event):void
 		{
-			var testArray:Array = new Array();
+			var layout:int = e.data.layout % 3;
 			
-			for (var i:int = 0; i < 16; i++)
-			{
-				var pv1:PieceVisual = new PieceVisual(1);
-				pv1.pieceUniqueId = i;
-				testArray.push(pv1);
-			}
-			
-			var testLayout:int = Math.floor(Math.random() * 3);
-			
-			piecesManager.placeWave(testArray, testLayout);
+			piecesManager.placeWave(e.data.array, layout);
 		}
 		
 		public function updateHUD():void

@@ -101,7 +101,8 @@ package view.multiplayer
 			
 			for (var i:int = 0; i < _placementArray.length; i++)
 			{
-				this._piecesArray[i] = _backboneArray.placePiece((_placementArray[i] as PieceVisual).pieceId, _layoutArray[i]);
+				this._piecesArray[i] = _backboneArray.placePiece(_placementArray[i].visualId, _layoutArray[i]);
+				PieceVisual(this._piecesArray[i]).pieceUniqueId = _placementArray[i].uniqueId;
 				if (!((_piecesArray[i] as PieceVisual).hasEventListener(PieceVisual.REQUEST_SELECT)))
 					PieceVisual(_piecesArray[i]).addEventListener(PieceVisual.REQUEST_SELECT, requestSelectHandler);
 				

@@ -34,12 +34,12 @@ package
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 			
 			// Entry point
-			this.loaderInfo.addEventListener(Event.COMPLETE, loaderInfo_completeHandler);
+			//this.loaderInfo.addEventListener(Event.COMPLETE, loaderInfo_completeHandler);
 			
 			
-			//var network:Network = new Network();
-			//network.setGuestLogin();
-			//network.init();
+			var network:Network = new Network();
+			network.setGuestLogin();
+			network.init();
 		}
 		
 		private function loaderInfo_completeHandler(event:Event):void

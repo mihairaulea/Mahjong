@@ -34,6 +34,7 @@
 		public static var LOGIN_SUCCESFUL:String="loginSuccesful";
 		
 		public static var LOGIN_ERROR:String="loginError";
+		public var loginErrorReason:String = "";
 		
 		public static var GROUP_SUBSCRIBED:String="groupSubscribed";
 		public var currentRoomArray:Array=new Array();
@@ -98,6 +99,7 @@
 		
 		public static var MAP_RECEIVED:String = "mapReceived";
 		public var gameMap:Array = new Array();
+		public var waveNumber:int = 0;
 
 		public function Network()
 		{
@@ -225,23 +227,12 @@
 		}
 		
 		private function onLogin(e:SFSEvent) {
-			trace("logged in --------------------------");
-			
-			// dummy test
 			sendNewGameRequest();
-			
-			var roomNameToJoin:String = "SnakeLimbo";//gameConventions.getDefaultLobbyRoomForGame(lobbyMode);
-			var roomGroupToSubscribe:String = ""; //gameConventions.getDefaultGroupNameForGame(lobbyMode);
-			
-			//sfs.send(new SubscribeRoomGroupRequest(roomGroupToSubscribe));
-			//sfs.send( new JoinRoomRequest("SnakeLimbo") );
-			
 			dispatchEvent(new Event(Network.LOGIN_SUCCESFUL));
 		}
 		
 		private function onLoginError(e:SFSEvent) {
-			trace("logged in error!");
-			trace(e.params.errorMessage+" logged in error reason");
+			loginErrorReason = e.params.errorMessage;
 			dispatchEvent(new Event(Network.LOGIN_ERROR));
 		}
 		
@@ -252,42 +243,7 @@
 		
 		private function onJoin(evt:SFSEvent):void
 		{
-			var currentLobbyRoomName : String = "";//gameConventions.getDefaultLobbyRoomForGame(this.lobbyMode);
-			trace(currentLobbyRoomName);
-			
-			var roomName:String = evt.params.room.name;
-			var theSame:Boolean = ( roomName == currentLobbyRoomName );
-			
-			if(theSame) {
-				trace("they are the same");
-				var room:SFSRoom = evt.params.room as SFSRoom;
-				trace(room.capacity+" room capacity");
-				trace(room.groupId+" group id");
-				trace(room.name+" room name");
-				trace(room.userList+" player list length");
-				//trebuie aranjat un pic in pula mea
-				//currentUsersArray = room.userList;
-				//
-				trace(currentUsersArray.length+ " currentUsersArray.length");
-				for(var i:int=0;i<currentUsersArray.length;i++) {
-					var user:SFSUser = room.userList[i];
-					var userInfo:Object = new Object();//UserInfo
-					var userType:String = (user.getVariable("userType").getStringValue());
-					userInfo.userType = userType;
-					userInfo.username = user.name;
-					if(userType == "oauth") {userInfo.iconURL = (user.getVariable("imageURL").getStringValue());}
-					// user.getVariable("coins");
-					userInfo.noOfCoins = 200;
-					userInfo.rating = 1201;
-					currentUsersArray.push(userInfo);
-				}
-				
-				for(var i:int=0;i<currentUsersArray.length;i++) trace(currentUsersArray.name);
-				
-				//
-				dispatchEvent(new Event(Network.YOUR_LOBBY_ROOM_JOINED));
-			}
-			
+			dispatchEvent(new Event(Network.GAME_ROOM_JOINED));			
 		}
  
 		private function onJoinError(evt:SFSEvent):void
@@ -422,6 +378,7 @@
 			
 			if (e.params.cmd == "map") 
 			{
+				waveNumber = responseParams.getInt("waveNumber");
 				var noOfPieces:int = responseParams.getInt("noOfPieces");
 				gameMap.splice(0, gameMap.length);
 				

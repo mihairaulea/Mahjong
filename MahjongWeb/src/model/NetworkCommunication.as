@@ -8,7 +8,7 @@ package model
 	public class NetworkCommunication extends EventDispatcher
 	{
 		private static var instance:NetworkCommunication;
-		
+				
 		public static const NEW_WAVE:String = "newWave";
 		public static const START_GAME:String = "startGame";
 		public static const OPPONENT_FOUND:String = "opponentFound";
@@ -48,17 +48,14 @@ package model
 			waveTimer.addEventListener(TimerEvent.TIMER, onWaveTimerTick);
 		}
 		
-		public function connectToServer():Boolean
+		public function connectToServer()
 		{
-			dispatchEvent(new Event(NetworkCommunication.CONNECTION_STARTED));
-			return true;
+			//dispatchEvent(new Event(NetworkCommunication.CONNECTION_STARTED));
 		}
 		
-		public function findOpponent():Boolean
+		public function findOpponent():void
 		{
-			// finds opponent
 			dispatchEvent(new Event(NetworkCommunication.OPPONENT_FOUND));
-			return true;
 		}
 		
 		public function startGame():void

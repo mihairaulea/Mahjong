@@ -13,7 +13,7 @@ package view.screens
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import util.SoundManager;
-	import view.game.pieces.PiecesManager;
+	import view.multiplayer.PiecesManagerMp;
 	import view.game.pieces.PieceVisual;
 
 	public class GameMultiplayer extends Screen
@@ -32,7 +32,7 @@ package view.screens
 		private var _displayConnectionLabel:DisplayObject;
 		
 		//Logic
-		private var piecesManager:PiecesManager;
+		private var piecesManager:PiecesManagerMp;
 		
 		//Pieces visual
 		private var _separatorX:Number;
@@ -92,7 +92,8 @@ package view.screens
 				DisplayObject(this._textScore)
 			];
 			
-			//piecesManager = PiecesManager();
+			piecesManager = new PiecesManagerMp();
+			addChild(piecesManager);
 			
 			// Add networking events
 			networkCommunication = NetworkCommunication.getInstance();
@@ -114,7 +115,7 @@ package view.screens
 			this._separatorY = this.originalHeight * 0.0001 * this.dpiScale;
 			this._displacementX = this.originalWidth * 0.0005 * this.dpiScale;
 			this._displacementY = this.originalWidth * 0.0005 * this.dpiScale;;
-			this._piecesMaxWidth = pieceDim.width * 18 + this._separatorX * 17 + this._displacementX * 5;
+			this._piecesMaxWidth = pieceDim.width * 18 * 0.9 + this._separatorX * 17 + this._displacementX * 5;
 			this._piecesMaxHeight = pieceDim.height * 8 + this._separatorY * 7 + this._displacementY * 5;
 			
 			this._displayBonusLabel = DisplayObject(this._bonusLabel);
@@ -124,11 +125,12 @@ package view.screens
 			this._displayConnectionLabel = DisplayObject(this._connectionLabel);
 			this._displayConnectionLabel.x = (this.actualWidth - this._displayConnectionLabel.width) * .5;
 			this._displayConnectionLabel.y = (this.actualHeight - this._displayConnectionLabel.height) * .5;
-
-			//this.piecesManager.x = (this.actualWidth - this.piecesManager.width) / 2;
-			//this.piecesManager.y = (this.actualHeight - this.piecesManager.height ) / 2 + this._header.height;
 			
 			isConnectedHandler(null);
+			
+			this.piecesManager.x = (this.actualWidth - _piecesMaxWidth) / 2; 
+			trace(_piecesMaxWidth, piecesManager.x)
+			this.piecesManager.y = this._header.height;
 		}
 		
 		public function startConnection():void
@@ -153,19 +155,41 @@ package view.screens
 			this._connectionLabel.validate();
 			this._displayConnectionLabel.x = (this.actualWidth - this._displayConnectionLabel.width) * .5;
 			
-			TweenMax.to(this._displayConnectionLabel, 3, { alpha:0, onComplete:startGame } );
+			TweenMax.to(this._displayConnectionLabel, 1, { alpha:0, onComplete:startGame } );
 		}
 		
 		private function startGame():void
 		{
 			// Game will now start
 			updateHUD();
-			//piecesManager.placeWave(new Array());
+			var testArray:Array = new Array();
+			
+			for (var i:int = 0; i < 16; i++)
+			{
+				var pv1:PieceVisual = new PieceVisual(1);
+				pv1.pieceUniqueId = i;
+				testArray.push(pv1);
+			}
+			
+			var testLayout:int = 1;
+			
+			piecesManager.placeWave(testArray, testLayout);
+			newWaveHandler(null);
 		}
 		
 		public function newWaveHandler(e:Event):void
 		{
-			//piecesManager.placeWave(new Array());
+			
+			var testArray:Array = new Array();
+			
+			for (var i:int = 0; i < 16; i++)
+			{
+				var pv1:PieceVisual = new PieceVisual(1);
+				pv1.pieceUniqueId = i;
+				testArray.push(pv1);
+			}
+			
+			piecesManager.placeWave(testArray, 2);
 		}
 		
 		public function updateHUD():void

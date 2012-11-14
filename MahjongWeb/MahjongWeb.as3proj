@@ -53,7 +53,6 @@
   <libraryPaths>
     <element path=".\lib\as3-signals-v0.8.swc" />
     <element path=".\lib\sounds.swc" />
-    <element path="lib\SFS2X_API_AS3.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

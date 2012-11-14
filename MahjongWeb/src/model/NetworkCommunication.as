@@ -11,6 +11,9 @@ package model
 		
 		public static const NEW_WAVE:String = "newWave";
 		public static const START_GAME:String = "startGame";
+		public static const OPPONENT_FOUND:String = "opponentFound";
+		public static const CONNECTION_STARTED:String = "connectionStarted";
+		public static const TIMER_TICK:String = "timerTick";
 		
 		public var placementArray:Array;
 		public var p1Score:int;
@@ -18,8 +21,6 @@ package model
 		public var secondsLeft:int;
 		
 		private var waveTimer:Timer;
-		
-		
 		
 		public function NetworkCommunication(p_key:SingletonBlocker) 
 		{
@@ -47,11 +48,24 @@ package model
 			waveTimer.addEventListener(TimerEvent.TIMER, onWaveTimerTick);
 		}
 		
+		public function connectToServer():Boolean
+		{
+			dispatchEvent(new Event(NetworkCommunication.CONNECTION_STARTED));
+			return true;
+		}
+		
 		public function findOpponent():Boolean
 		{
 			// finds opponent
-			startGame();
+			dispatchEvent(new Event(NetworkCommunication.OPPONENT_FOUND));
 			return true;
+		}
+		
+		public function startGame():void
+		{
+			dispatchEvent(new Event(NetworkCommunication.START_GAME));
+			this.init()
+			waveTimer.start();
 		}
 		
 		private function onWaveTimerTick(e:TimerEvent):void
@@ -60,17 +74,14 @@ package model
 			
 			if(secondsLeft % 10 == 0)
 				generateNewWave();
+				
+			dispatchEvent(new Event(NetworkCommunication.TIMER_TICK));
 		}
 		
 		private function generateNewWave():void
 		{
-			
+			trace("GENERATE NEW WAVE");
 			dispatchEvent(new Event(NetworkCommunication.NEW_WAVE));
-		}
-		
-		private function startGame():void
-		{
-			dispatchEvent(new Event(NetworkCommunication.START_GAME));
 		}
 		
 		private function getPoints(timeRemoved:int):int 

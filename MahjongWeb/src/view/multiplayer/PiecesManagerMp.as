@@ -1,5 +1,7 @@
 package view.multiplayer 
 {
+	import com.greensock.TweenLite;
+	import model.multiplayer.LayoutsData;
 	import starling.display.Sprite;
 	import starling.display.DisplayObject;
 	import starling.utils.Color
@@ -14,9 +16,13 @@ package view.multiplayer
 	{
 		public static const PIECES_REMOVED:String = "piecesRemoved";
 		public static const BONUS_FOR_CLASSIC:String = "bonusForClassic";
+		public static const REQUEST_SELECT:String = "requestSelect";
 		
 		private var _piecesArray:Array;
 		private var _backboneArray:BackboneArray;
+		
+		private var _placementArray:Array;
+		private var _layoutArray:Array;
 		
 		// TODO: Delete
 		private var noOfPiecesSelected:int = 0;
@@ -44,59 +50,13 @@ package view.multiplayer
 			
 		}
 		
-		// TODO: Delete
-		private function pieceBurnedHandler(e:Event):void
-		{
-			noOfPieces--;
-			dispatchEvent(new Event(PiecesManager.PIECES_REMOVED));
-		}
-		
-		// TODO: Delete
-		private function arePiecesFree(piece1:PieceVisual, piece2:PieceVisual ):Boolean
-		{
-			var isFree1:Boolean = isPieceFree(piece1.pointWherePlaced.x,piece1.pointWherePlaced.y,piece1.pointWherePlaced.z);
-			var isFree2:Boolean = isPieceFree(piece2.pointWherePlaced.x,piece2.pointWherePlaced.y,piece2.pointWherePlaced.z);
-
-			return isFree1 && isFree2;
-		}
-		
-		// TODO: Delete
-		private function isPieceFree(x:int,y:int,z:int):Boolean
-		{
-			if (z + 1 < piecesArray[x][y].length)
-				if (piecesArray[x][y][z + 1] == -1)
-					return true;
-					
-			if (z == piecesArray[x][y].length - 1)
-				return true;
-
-			if (z - 1 > 0)
-				if (piecesArray[x][y][z - 1] == -1)
-					return true;
-					
-			if (z - 1 == 0)
-				return true;
-
-			return false;
-		}
-		
-		// TODO: Delete
-		private function checkPiecesSame():Boolean
-		{
-			var areSame:Boolean = false;
-			if (selectedPieces[0].pieceId == selectedPieces[1].pieceId && selectedPieces[0] != selectedPieces[1])
-				areSame = true;
-
-			return areSame;
-		}
-		
 		public function deinit():void {
 			_backboneArray.reset();
 			
 			noOfPiecesPlaced = 0;
 			noOfPieces = 0;
 			
-			piecesArray.splice(0,piecesArray.length);
+			_piecesArray.splice(0,_piecesArray.length);
 			
 			noOfPiecesSelected = 0;
 			selectedPieces.splice(0, selectedPieces.length);
@@ -108,56 +68,73 @@ package view.multiplayer
 		// --------------------------------------------------------------------
 		
 		// !!!
-		public function placeWave(placementArray:Array):void
+		public function placeWave(placementArray:Array, layoutId:int):void
 		{
-			//TODO: Dont forget to add events to pieces if events dont exist!!
+			this._layoutArray = LayoutsData.getLayout(layoutId);
+			this._placementArray = placementArray;
+			
 			removePreviousWave();
-			
-			this.piecesArray = placementArray;
-			
-			var depth:int = 0;
-			for (var i:int=placementArray.length-1; i>=0; i--)
-			{
-				for (var j:int=placementArray[i].length-1; j>=0; j--)
-				{	
-					for (var k:int=0; k<placementArray[i][j].length; k++)
-					{
-						if (placementArray[i][j][k] != 0 && placementArray[i][j][k] != -1)
-						{
-							noOfPieces++;
-							this.piecesArray[i][j][k] = _backboneArray.placePiece(placementArray[i][j][k],
-								new PointWherePlaced(i, j, k));
-							if (!((this.piecesArray[i][j][k] as PieceVisual).hasEventListener(PieceVisual.REQUEST_SELECT)))
-								PieceVisual(this.piecesArray[i][j][k]).addEventListener(PieceVisual.REQUEST_SELECT, requestSelectHandler);
-							if (!((this.piecesArray[i][j][k] as PieceVisual).hasEventListener(PieceVisual.PIECE_BURNED)))
-								PieceVisual(this.piecesArray[i][j][k]).addEventListener(PieceVisual.PIECE_BURNED, pieceBurnedHandler);
-							noOfPiecesPlaced++;
-						}
-					}
-				}
-			}
-			
 		}
 		
 		private function removePreviousWave():void
+		{			
+			if (_piecesArray != null)
+			{
+				for (var i:int = 0; i < _piecesArray.length; i++)
+				{
+					if (_piecesArray[i].placed == true)
+					{
+						_piecesArray[i].unselectPiece();
+						_piecesArray[i].placed = false;
+						PieceVisual(_piecesArray[i]).visible = false;
+						
+					}
+				}
+				
+				deinit();
+				placeNewWave();
+			}
+			else
+			{
+				placeNewWave();
+			}
+		}
+		
+		private function placeNewWave():void
 		{
-			// Remove all pieces from the board 
+			this._piecesArray = new Array();
 			
+			for (var i:int = 0; i < _placementArray.length; i++)
+			{
+				this._piecesArray[i] = _backboneArray.placePiece((_placementArray[i] as PieceVisual).pieceId, _layoutArray[i]);
+				if (!((_piecesArray[i] as PieceVisual).hasEventListener(PieceVisual.REQUEST_SELECT)))
+					PieceVisual(_piecesArray[i]).addEventListener(PieceVisual.REQUEST_SELECT, requestSelectHandler);
+				
+				noOfPieces++;
+				noOfPiecesPlaced++;
+			}			
+
 		}
 		
 		private function requestSelectHandler(e:Event):void
-		{	
+		{
+			//PieceVisual(e.target)
+			dispatchEvent(new Event(REQUEST_SELECT));
 			
 		}
 		
 		public function burnPieces(piecesIds:Array):void
 		{
-			
+			for each(var id:int in piecesIds)
+			{
+				PieceVisual(_piecesArray[id]).burnPiece();
+				noOfPiecesPlaced--;
+			}
 		}
 		
 		public function selectPiece(pieceId:int):void
 		{
-			
+			PieceVisual(_piecesArray[pieceId]).selectPiece();
 		}
 	}
 

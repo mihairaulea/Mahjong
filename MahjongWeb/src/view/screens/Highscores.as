@@ -24,7 +24,7 @@ package view.screens
 		
 		private var _items:Array;
 		
-		var highscoresModel:HighscoresModel = HighscoresModel.getInstance();
+		private var highscoresModel:HighscoresModel = HighscoresModel.getInstance();
 		
 		public function Highscores() 
 		{
@@ -87,7 +87,7 @@ package view.screens
 			highscoresModel.retrieveTopScores();
 		}
 		
-		private function highscoresReceivedFromNetwork(e:Event)
+		private function highscoresReceivedFromNetwork(e:Event):void
 		{
 			this._items = highscoresModel.highscoresArray;
 			this._list.dataProvider = new ListCollection(_items);

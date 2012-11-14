@@ -16,10 +16,10 @@ goto desktop
 
 ::set SCREEN_SIZE=480
 ::set SCREEN_SIZE=720
-::set SCREEN_SIZE=1080
+::set SCREEN_SIZE=1080 ? crash
 ::set SCREEN_SIZE=Droid
 ::set SCREEN_SIZE=FWQVGA
-::set SCREEN_SIZE=FMVGA
+::set SCREEN_SIZE=FMVGA ? didnt build
 ::set SCREEN_SIZE=HVGA
 ::set SCREEN_SIZE=iPad
 ::set SCREEN_SIZE=iPhone

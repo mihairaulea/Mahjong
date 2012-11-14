@@ -27,7 +27,7 @@ package
 		public function Main():void 
 		{
 			// General properties
-			/*
+			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			
@@ -35,11 +35,11 @@ package
 			
 			// Entry point
 			this.loaderInfo.addEventListener(Event.COMPLETE, loaderInfo_completeHandler);
-			*/
 			
-			var network:Network = new Network();
-			network.setGuestLogin();
-			network.init();
+			
+			//var network:Network = new Network();
+			//network.setGuestLogin();
+			//network.init();
 		}
 		
 		private function loaderInfo_completeHandler(event:Event):void

@@ -25,24 +25,30 @@
 			}
 		}
 		
-		public function placePiece(pieceId:String):Array {
+		public function placePiece(pieceId:String):Array 
+		{
 					
 			var wherePlacedArray:Array = new Array(2);
 			
 			if(isLayerFull()==true) {workLayer++;}
 			
-			if(workLayer <= generatedLevel.length) {
-				
-			var wherePlaced:PointWherePlaced = new PointWherePlaced(0,0);
-			wherePlaced = placeFirstPieceFromPairOnLevel(pieceId);
-			var wherePlaced2:PointWherePlaced = new PointWherePlaced(0,0);
-			wherePlaced2 = placeSecondPieceFromPairOnLevel(pieceId, wherePlaced);
+			if (workLayer <= generatedLevel.length) 
+			{		
+				var wherePlaced:PointWherePlaced = new PointWherePlaced(0,0);
+				wherePlaced = placeFirstPieceFromPairOnLevel(pieceId);
+			}
 			
-			wherePlacedArray[0] =wherePlaced;
-			wherePlacedArray[1] =wherePlaced2;
+			if(isLayerFull()==true) {workLayer++;}
 			
-			moves.push(wherePlacedArray);
+			if (workLayer <= generatedLevel.length)
+			{
+				var wherePlaced2:PointWherePlaced = new PointWherePlaced(0,0);
+				wherePlaced2 = placeSecondPieceFromPairOnLevel(pieceId, wherePlaced);
 			
+				wherePlacedArray[0] =wherePlaced;
+				wherePlacedArray[1] =wherePlaced2;
+			
+				moves.push(wherePlacedArray);
 			}
 			
 			return wherePlacedArray;
@@ -61,7 +67,7 @@
 			var wherePlaced:PointWherePlaced =new PointWherePlaced(0,0);
 			
 			wherePlaced = getFreePosition();
-						
+			
 			if(wherePlaced!=null) generatedLevel[wherePlaced.x][wherePlaced.y][wherePlaced.z] = pieceId;			
 			return wherePlaced;
 		}
@@ -89,7 +95,9 @@
 				}
 			}
 			
-			if(goodBlocks.length == 0) return null;
+			if (goodBlocks.length == 0) 
+				return null;
+
 			var chosenBlockRow:int = Math.floor(Math.random() * goodBlocks.length);						
 			var point:PointWherePlaced  = getPosToPlacePiece(goodBlocks[chosenBlockRow]);
 			

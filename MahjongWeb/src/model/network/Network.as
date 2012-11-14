@@ -83,7 +83,7 @@
 		private var sfs:SmartFox;
 		private var groupsSubscribed:Array=new Array();
 
-		private var username:String="test";
+		private var username:String="test"+Math.random()+Math.random();
 		private var uniqueUserKey:String=null;
 		private var network:String=null;
 		private var imageURL:String=null;
@@ -95,26 +95,32 @@
 		private var dtdRegister:Boolean = false;
 		private var socialNetworkLogin:Boolean = false;
 		private var guestLogin:Boolean = false;
+		
+		public static var MAP_RECEIVED:String = "mapReceived";
+		public var gameMap:Array = new Array();
 
 		public function Network()
 		{
 			
 		}
 		
-		public function setDTDLoginCredentials(user:String,pass:String) {
+		public function setDTDLoginCredentials(user:String, pass:String) 
+		{
 			this.username = user;
 			this.password = pass;
 			dtdLogin = true;
 		}
 		
-		public function setDTDRegisterCredentials(user:String,pass:String,email:String) {
+		public function setDTDRegisterCredentials(user:String, pass:String, email:String) 
+		{
 			this.username = user;
 			this.password = pass;
 			this.email = email;
 			this.dtdRegister = true;
 		}
 		
-		public function setOAuthLoginCredentials(user:String, network:String,uniqueUserK:String,imageURL:String) {
+		public function setOAuthLoginCredentials(user:String, network:String, uniqueUserK:String, imageURL:String) 
+		{
 			this.username = user;
 			this.network = network;
 			this.uniqueUserKey = uniqueUserK;
@@ -122,15 +128,16 @@
 			socialNetworkLogin = true;
 		}
 		
-		public function setGuestLogin() {
+		public function setGuestLogin() 
+		{
 			guestLogin = true;
 		}
 		
 		public function init() {
-			sfs = new SmartFox(true);
+			sfs = new SmartFox(false);
 			sfs.connect("localhost",9933);
 			// Turn on the debug feature
-			sfs.debug = true;
+			//sfs.debug = false;
 			// Add SFS2X event listeners
 			sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
@@ -148,8 +155,8 @@
 			sfs.addEventListener(SFSBuddyEvent.BUDDY_ADD, onBuddyAdded);
          	sfs.addEventListener(SFSBuddyEvent.BUDDY_ERROR, onBuddyError);
 						
-			sfs.addEventListener(SFSEvent.ROOM_ADD, roomAddHandler);
-			sfs.addEventListener(SFSEvent.ROOM_REMOVE, roomRemoveHandler);
+			//sfs.addEventListener(SFSEvent.ROOM_ADD, roomAddHandler);
+			//sfs.addEventListener(SFSEvent.ROOM_REMOVE, roomRemoveHandler);
 			
 			sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, userEnterRoomHandler);
 			sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, userExitRoomHandler);		
@@ -220,6 +227,9 @@
 		private function onLogin(e:SFSEvent) {
 			trace("logged in --------------------------");
 			
+			// dummy test
+			sendNewGameRequest();
+			
 			var roomNameToJoin:String = "SnakeLimbo";//gameConventions.getDefaultLobbyRoomForGame(lobbyMode);
 			var roomGroupToSubscribe:String = ""; //gameConventions.getDefaultGroupNameForGame(lobbyMode);
 			
@@ -233,6 +243,11 @@
 			trace("logged in error!");
 			trace(e.params.errorMessage+" logged in error reason");
 			dispatchEvent(new Event(Network.LOGIN_ERROR));
+		}
+		
+		private function sendNewGameRequest()
+		{
+			sfs.send(new ExtensionRequest("newGameRequest"));
 		}
 		
 		private function onJoin(evt:SFSEvent):void
@@ -402,42 +417,30 @@
 		}
 		
 		private function onExtensionResponse(e:SFSEvent) {
-			trace("PRIMESC RASPUNS DE LA EXTENSIE!!!");
+			
 			var responseParams:ISFSObject = e.params.params as SFSObject
 			
-			if(responseParams.getUtfString("extensionResponse")=="lobby") {
-				trace("raspuns de tip lobby!");
-				var systemResponse:String=responseParams.getUtfString("systemResponse");
-				if(systemResponse=="loginResponse") {
-					trace(responseParams.getBool("isFirstTimeLogin")+" is first time login");
-					trace(responseParams.getInt("coinsReceivedFirstTime")+" coinsReceivedFirstTime");
-					trace(responseParams.getBool("hasReceivedBonus")+" hasReceivedBonus");
-					trace(responseParams.getInt("bonusReceived")+" bonusReceived");
-					trace(responseParams.getUtfString("lastBonusTime")+ " lastBonusTime");
-					trace(responseParams.getUtfString("nextBonusTime")+" nextBonusTime");
-					
-					var user:User = sfs.mySelf;
-					
-					//username.text = (user.name);
-					
-					var coins:int = responseParams.getInt("coins");
-					trace(coins+" ============ NUMAR DE COINS");
-					
-					//noOfCoins.text = String(coins);
-				}
-				else
-				if(systemResponse=="createRoomResponse") {
-					var success:Boolean = responseParams.getBool("success");
-					if(success==false) var errorMessage:String = responseParams.getUtfString("errorMessage");
-				}
-				else
-				if(systemResponse=="joinRoomResponse") {
-					var success:Boolean = responseParams.getBool("success");
-					var errorMessage:String = responseParams.getUtfString("errorMessage");				
+			if (e.params.cmd == "map") 
+			{
+				var noOfPieces:int = responseParams.getInt("noOfPieces");
+				gameMap.splice(0, gameMap.length);
+				
+				for (var i:int = 0; i < noOfPieces; i++)
+				{
+					gameMap[i] = new Object();
+					gameMap[i].uniqueId = responseParams.getInt("uniqueValueId");
+					gameMap[i].visualId = responseParams.getInt("visualId");
 				}
 				
+				trace("MAP RECEIVED");
+				dispatchEvent(new Event(Network.MAP_RECEIVED));
 			}
-			
+			else
+			if (e.params.cmd == "tick")
+			{
+				trace("tick");
+			}
+	
 		}
 		
 		private function onBuddyAdded(evt:SFSEvent) {

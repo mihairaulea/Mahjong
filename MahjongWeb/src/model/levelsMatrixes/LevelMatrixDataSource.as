@@ -32,7 +32,8 @@
 			return levels[levelId];
 		}
 		
-		public function deinit():void {
+		public function deinit():void 
+		{
 			
 		}
 		

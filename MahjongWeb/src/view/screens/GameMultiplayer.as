@@ -135,7 +135,6 @@ package view.screens
 			this._displayConnectionLabel.x = (this.actualWidth - this._displayConnectionLabel.width) * .5;
 			this._displayConnectionLabel.y = (this.actualHeight - this._displayConnectionLabel.height) * .5;
 			
-			isConnectedHandler(null);
 			
 			this.piecesManager.x = (this.actualWidth - _piecesMaxWidth) / 2; 
 			this.piecesManager.y = this._header.height;

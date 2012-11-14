@@ -3,9 +3,18 @@ package model.network
 	
 	import flash.events.*;
 	import flash.net.NetworkInfo;
+	import starling.events.*;
 	
-	public class NetworkWrapper extends EventDispatcher
+	public class NetworkWrapper extends starling.events.EventDispatcher
 	{
+		public static const CONNECTION_ERROR:String = "connectionError";
+		public static const CONNECTION_STARTED:String = "connectionStarted";
+		public static const OPPONENT_FOUND:String = "opponentFound";
+		public static const NEW_WAVE:String = "newWave";
+		public static const PIECE_SELECTED:String = "pieceSelected";
+		public static const PIECES_UNSELECTED:String = "pieceUnselected";
+		public static const PIECES_BURNED:String = "piecesBurned";
+		public static const BONUS_FOR_CLASSIC:String = "bonusForClassic";
 		
 		var network:Network = new Network();
 		
@@ -15,11 +24,22 @@ package model.network
 		}
 		
 		// requests to send
-		public function startNetwork()
+		public function startNetwork():void
 		{
+			addEventListeners();
 			network.init();
 		}
 		
+		public function initiateGameRequest():void
+		{
+			//network.
+		}
+		
+		public function selectPieceRequest(pieceId:int,userId:int):void
+		{
+			// Select piece
+			//network.
+		}
 		
 		// communication received
 		private function addEventListeners()
@@ -30,50 +50,53 @@ package model.network
 			network.addEventListener(Network.GAME_ROOM_JOINED, gameRoomJoinedHandler);
 			network.addEventListener(Network.MAP_RECEIVED, mapReceivedHandler);
 			
-			network.addEventListener(Network.GAME_TICK, gameTickReceived);
+			//network.addEventListener(Network.GAME_TICK, gameTickReceived);
 			
-			network.addEventListener(Network.PIECES_BURNED, pieceBurnedHandler);
-			network.addEventListener(Network.PIECE_SELECTED, pieceSelectedHandler);
-			network.addEventListener(Network.PIECES_RELEASED, piecesReleasedHandler);
+			//network.addEventListener(Network.PIECES_BURNED, pieceBurnedHandler);
+			//network.addEventListener(Network.PIECE_SELECTED, pieceSelectedHandler);
+			//network.addEventListener(Network.PIECES_RELEASED, piecesReleasedHandler);
 		}
 		
-		private function loginSuccessHandler(e:Event)
+		private function loginSuccessHandler(e:flash.events.Event):void
 		{
-			
+			this.dispatchEvent(new starling.events.Event(CONNECTION_STARTED));
 		}
 		
-		private function loginErrorHandler(e:Event)
+		private function loginErrorHandler(e:flash.events.Event):void
 		{
 			trace(network.loginErrorReason);
-		}
-		
-		private function gameRoomJoinedHandler(e:Event)
-		{
+			this.dispatchEvent(new starling.events.Event(CONNECTION_ERROR));
 			
 		}
 		
-		private function mapReceivedHandler(e:Event)
+		private function gameRoomJoinedHandler(e:flash.events.Event):void
+		{
+			this.dispatchEvent(new starling.events.Event(OPPONENT_FOUND));
+		}
+		
+		private function mapReceivedHandler(e:flash.events.Event):void
 		{
 			trace(network.gameMap);
 			trace(network.waveNumber + " wave number");
+			this.dispatchEvent(new starling.events.Event(NEW_WAVE, false, network.gameMap));
 		}
 		
-		private function gameTickReceived(e:Event)
+		private function gameTickReceived(e:flash.events.Event):void
 		{
 			
 		}
 		
-		private function pieceBurnedHandler(e:Event)
+		private function pieceBurnedHandler(e:flash.events.Event):void
 		{
 			
 		}
 		
-		private function pieceSelectedHandler(e:Event)
+		private function pieceSelectedHandler(e:flash.events.Event):void
 		{
 			
 		}
 		
-		private function piecesReleasedHandler(e:Event)
+		private function piecesReleasedHandler(e:flash.events.Event):void
 		{
 			
 		}

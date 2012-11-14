@@ -70,7 +70,7 @@ package view.game.pieces
 		
 		private function onTrigger(event:Event):void
 		{
-			this.dispatchEvent(new Event(PieceVisual.REQUEST_SELECT));
+			this.dispatchEvent(new Event(PieceVisual.REQUEST_SELECT, true));
 		}
 		
 		public function selectPiece():void

@@ -9,6 +9,7 @@ package view.screens
 	import feathers.core.ITextRenderer;
 	import flash.text.TextFormat;
 	import model.GameConstants;
+	import model.network.NetworkWrapper;
 	import model.NetworkCommunication;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -50,6 +51,8 @@ package view.screens
 		
 		//Networking
 		private var networkCommunication:NetworkCommunication;
+		private var _networkWrapper:NetworkWrapper;
+		private var _userId:int = -1;
 		
 		public function GameMultiplayer() 
 		{
@@ -57,7 +60,7 @@ package view.screens
 		}
 		
 		override protected function initialize():void
-		{
+		{	
 			this._scoreHud = new ScoreHud();
 			
 			this._leaveButton = new Button();
@@ -97,17 +100,31 @@ package view.screens
 				DisplayObject(this._textScore)
 			];
 			
+			
+			// Init pieces management
 			piecesManager = new PiecesManagerMp();
+			piecesManager.addEventListener(PiecesManagerMp.REQUEST_SELECT, pieceSelectRequestHander);
 			addChild(piecesManager);
 			
-			// Add networking events
-			networkCommunication = NetworkCommunication.getInstance();
-			networkCommunication.addEventListener(NetworkCommunication.START_GAME, startGame);
-			networkCommunication.addEventListener(NetworkCommunication.NEW_WAVE, newWaveHandler);
-			networkCommunication.addEventListener(NetworkCommunication.OPPONENT_FOUND, opponentFoundHandler);
-			networkCommunication.addEventListener(NetworkCommunication.CONNECTION_STARTED, isConnectedHandler);
-			networkCommunication.addEventListener(NetworkCommunication.TIMER_TICK, updateHUD);
-			networkCommunication.addEventListener(NetworkCommunication.PIECE_BURNED, pieceBurnedHandler);
+			// Init networking
+			this._networkWrapper = new NetworkWrapper();
+			this._networkWrapper.addEventListener(NetworkWrapper.CONNECTION_ERROR, connectionErrorHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.CONNECTION_STARTED, isConnectedHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.OPPONENT_FOUND, opponentFoundHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.NEW_WAVE, newWaveHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.PIECE_SELECTED, pieceSelectedHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.PIECES_UNSELECTED, piecesUnselectedHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.PIECES_BURNED, piecesBurnedHandler);
+			this._networkWrapper.addEventListener(NetworkWrapper.BONUS_FOR_CLASSIC, bonusForClassicHandler);
+			
+			// Add test networking events
+			//networkCommunication = NetworkCommunication.getInstance();
+			//networkCommunication.addEventListener(NetworkCommunication.START_GAME, startGame);
+			//networkCommunication.addEventListener(NetworkCommunication.NEW_WAVE, newWaveHandler);
+			//networkCommunication.addEventListener(NetworkCommunication.OPPONENT_FOUND, opponentFoundHandler);
+			//networkCommunication.addEventListener(NetworkCommunication.CONNECTION_STARTED, isConnectedHandler);
+			//networkCommunication.addEventListener(NetworkCommunication.TIMER_TICK, updateHUD);
+			//networkCommunication.addEventListener(NetworkCommunication.PIECE_BURNED, pieceBurnedHandler);
 		}
 		
 		override protected function draw():void
@@ -143,12 +160,26 @@ package view.screens
 			this._scoreHud.x = actualWidth * .5;
 			this._scoreHud.y = this._header.height;
 			addChild(this._scoreHud);
+			
+			startConnection();
 		}
 		
 		public function startConnection():void
 		{
-			// Try to connect to the server here
-			networkCommunication.connectToServer();
+			// Connect to the server here
+			_networkWrapper.startNetwork();
+			
+			// test
+			//networkCommunication.connectToServer();
+		}
+		
+		private function connectionErrorHandler(e:Event):void
+		{
+			this._connectionLabel.text = "Could not establish a connection. Try again later";
+			this._connectionLabel.validate();
+			this._displayConnectionLabel.x = (this.actualWidth - this._displayConnectionLabel.width) * .5;
+			
+			TweenMax.to(this._displayConnectionLabel, 1, { alpha:0, onComplete: leaveTween_onComplete, delay: 5 } );
 		}
 		
 		private function isConnectedHandler(e:Event):void
@@ -158,7 +189,8 @@ package view.screens
 			this._connectionLabel.validate();
 			this._displayConnectionLabel.x = (this.actualWidth - this._displayConnectionLabel.width) * .5;
 			
-			networkCommunication.findOpponent();
+			// test
+			//networkCommunication.findOpponent();
 		}
 		
 		private function opponentFoundHandler(e:Event):void
@@ -173,7 +205,11 @@ package view.screens
 		
 		private function readyHandler():void
 		{
-			networkCommunication.startGame();
+			// S;ar putea sa trebuiasca apelat mai devreme si doar afisate aici datele de la comanda de sub 
+			_networkWrapper.initiateGameRequest();
+			
+			// test
+			//networkCommunication.startGame();
 		}
 		
 		private function startGame():void
@@ -196,7 +232,6 @@ package view.screens
 		
 		public function newWaveHandler(e:Event):void
 		{
-			
 			var testArray:Array = new Array();
 			
 			for (var i:int = 0; i < 16; i++)
@@ -228,7 +263,6 @@ package view.screens
 		
 		private function pieceBurnedHandler(e:Event):void
 		{
-			trace("PIECE BURNED");
 			
 			// Update score logic/text/visual
 			var leftSeconds:int = networkCommunication.secondsLeft;
@@ -236,9 +270,12 @@ package view.screens
 			_scoreHud.calcPoints(leftSeconds, networkCommunication.playerAction);
 			_scoreHud.updateScoreText();
 			_scoreHud.updateScorePos();
+			
+			// e.data should contain the unique id of the 2 pieces
+			//piecesManager.burnPieces(e.data);
 		}
 		
-		private function bonusForClassic(event:Event):void
+		private function bonusForClassicHandler(e:Event):void
 		{
 			this._displayBonusLabel.alpha = 1;
 			this._displayBonusLabel.x = this.actualWidth - this._displayBonusLabel.width - this._separatorX * 120;
@@ -248,10 +285,36 @@ package view.screens
 			TweenMax.to(this._displayBonusLabel, 1.2, { alpha:0, y:endTweenPosition } );
 		}
 		
+		private function leaveTween_onComplete():void
+		{
+			dispatchEvent(new Event(ON_LEAVE));
+		}
+		
 		private function leaveButton_onRelease(button:Button):void
 		{
 			dispatchEvent(new Event(ON_LEAVE));
 		}
+		
+		private function pieceSelectRequestHander(e:Event):void
+		{
+			_networkWrapper.selectPieceRequest(int(e.data), _userId);
+		}
+		
+		private function pieceSelectedHandler(e:Event):void
+		{
+			
+		}
+		
+		private function piecesUnselectedHandler(e:Event):void
+		{
+			
+		}
+		
+		private function piecesBurnedHandler(e:Event):void
+		{
+			
+		}
+		
 	}
 
 }

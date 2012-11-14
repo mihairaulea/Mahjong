@@ -14,7 +14,6 @@ package view.multiplayer
 	
 	public class PiecesManagerMp extends Sprite
 	{
-		public static const PIECES_REMOVED:String = "piecesRemoved";
 		public static const BONUS_FOR_CLASSIC:String = "bonusForClassic";
 		public static const REQUEST_SELECT:String = "requestSelect";
 		
@@ -86,18 +85,14 @@ package view.multiplayer
 					{
 						_piecesArray[i].unselectPiece();
 						_piecesArray[i].placed = false;
-						PieceVisual(_piecesArray[i]).visible = false;
-						
+						PieceVisual(_piecesArray[i]).visible = false;	
 					}
 				}
-				
 				deinit();
 				placeNewWave();
 			}
 			else
-			{
 				placeNewWave();
-			}
 		}
 		
 		private function placeNewWave():void
@@ -118,9 +113,9 @@ package view.multiplayer
 		
 		private function requestSelectHandler(e:Event):void
 		{
-			//PieceVisual(e.target)
-			dispatchEvent(new Event(REQUEST_SELECT));
-			
+			var data:int = PieceVisual(e.target).pieceUniqueId;
+			trace(data);
+			dispatchEvent(new Event(REQUEST_SELECT, false, data ));
 		}
 		
 		public function burnPieces(piecesIds:Array):void

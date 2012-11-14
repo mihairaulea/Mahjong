@@ -132,7 +132,7 @@ package view.multiplayer
 			}
 		}
 		
-		public function selectPiece(pieceId:int):void
+		public function selectPiece(pieceId:int,userId:int):void
 		{
 			PieceVisual(_piecesArray[pieceId]).selectPiece();
 		}

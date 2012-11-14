@@ -15,6 +15,7 @@ package view.screens
 	import util.SoundManager;
 	import view.multiplayer.PiecesManagerMp;
 	import view.game.pieces.PieceVisual;
+	import view.multiplayer.ScoreHud;
 
 	public class GameMultiplayer extends Screen
 	{
@@ -30,6 +31,8 @@ package view.screens
 		private var _displayBonusLabel:DisplayObject;
 		private var _connectionLabel:TextFieldTextRenderer;
 		private var _displayConnectionLabel:DisplayObject;
+		
+		private var _scoreHud:ScoreHud;
 		
 		//Logic
 		private var piecesManager:PiecesManagerMp;
@@ -55,6 +58,8 @@ package view.screens
 		
 		override protected function initialize():void
 		{
+			this._scoreHud = new ScoreHud();
+			
 			this._leaveButton = new Button();
 			this._leaveButton.label = "Leave";
 			this._leaveButton.onRelease.add(leaveButton_onRelease);
@@ -102,6 +107,7 @@ package view.screens
 			networkCommunication.addEventListener(NetworkCommunication.OPPONENT_FOUND, opponentFoundHandler);
 			networkCommunication.addEventListener(NetworkCommunication.CONNECTION_STARTED, isConnectedHandler);
 			networkCommunication.addEventListener(NetworkCommunication.TIMER_TICK, updateHUD);
+			networkCommunication.addEventListener(NetworkCommunication.PIECE_BURNED, pieceBurnedHandler);
 		}
 		
 		override protected function draw():void
@@ -132,8 +138,12 @@ package view.screens
 			isConnectedHandler(null);
 			
 			this.piecesManager.x = (this.actualWidth - _piecesMaxWidth) / 2; 
-			trace(_piecesMaxWidth, piecesManager.x)
 			this.piecesManager.y = this._header.height;
+			
+			this._scoreHud.init(400, this.actualWidth * 7/8, this._header.height * .25);
+			this._scoreHud.x = actualWidth * .5;
+			this._scoreHud.y = this._header.height;
+			addChild(this._scoreHud);
 		}
 		
 		public function startConnection():void
@@ -212,11 +222,21 @@ package view.screens
 				this._textTime.text = "Time: " + minutes + ":0" + leftSeconds;
 			else
 				this._textTime.text = "Time: " + minutes + ":" + leftSeconds;
+				
+			// Update score
+			//_scoreHud.updateScorePos(networkCommunication.p1Score, networkCommunication.p2Score);
 		}
 		
 		private function pieceBurnedHandler(e:Event):void
 		{
+			trace("PIECE BURNED");
 			
+			// Update score logic/text/visual
+			var leftSeconds:int = networkCommunication.secondsLeft;
+			
+			_scoreHud.calcPoints(leftSeconds, networkCommunication.playerAction);
+			_scoreHud.updateScoreText();
+			_scoreHud.updateScorePos();
 		}
 		
 		private function bonusForClassic(event:Event):void

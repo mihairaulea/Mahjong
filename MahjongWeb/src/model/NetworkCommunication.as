@@ -14,11 +14,13 @@ package model
 		public static const OPPONENT_FOUND:String = "opponentFound";
 		public static const CONNECTION_STARTED:String = "connectionStarted";
 		public static const TIMER_TICK:String = "timerTick";
+		public static const PIECE_BURNED:String = "pieceBurned";
 		
 		public var placementArray:Array;
 		public var p1Score:int;
 		public var p2Score:int;
 		public var secondsLeft:int;
+		public var playerAction:Boolean;
 		
 		private var waveTimer:Timer;
 		
@@ -76,11 +78,16 @@ package model
 				generateNewWave();
 				
 			dispatchEvent(new Event(NetworkCommunication.TIMER_TICK));
+			
+			if (secondsLeft % 5 == 0)
+			{
+				playerAction = !playerAction;
+				dispatchEvent(new Event(NetworkCommunication.PIECE_BURNED));
+			}
 		}
 		
 		private function generateNewWave():void
 		{
-			trace("GENERATE NEW WAVE");
 			dispatchEvent(new Event(NetworkCommunication.NEW_WAVE));
 		}
 		

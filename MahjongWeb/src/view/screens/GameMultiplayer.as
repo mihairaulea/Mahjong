@@ -227,7 +227,6 @@ package view.screens
 		public function newWaveHandler(e:Event):void
 		{
 			var layout:int = e.data.layout % 3;
-			
 			piecesManager.placeWave(e.data.array, layout);
 		}
 		

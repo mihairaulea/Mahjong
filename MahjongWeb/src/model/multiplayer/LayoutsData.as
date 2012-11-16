@@ -75,14 +75,14 @@ package model.multiplayer
 
 				
 				cornersLayout = [
+					new PointWherePlaced(0, 2, 0),
+					new PointWherePlaced(0, 2, 1),
 					new PointWherePlaced(0, 1, 0),
 					new PointWherePlaced(0, 1, 1),
-					new PointWherePlaced(0, 0, 0),
-					new PointWherePlaced(0, 0, 1),
+					new PointWherePlaced(0, 2, 16),
+					new PointWherePlaced(0, 2, 17),
 					new PointWherePlaced(0, 1, 16),
 					new PointWherePlaced(0, 1, 17),
-					new PointWherePlaced(0, 0, 16),
-					new PointWherePlaced(0, 0, 17),
 					new PointWherePlaced(0, 7, 0),
 					new PointWherePlaced(0, 6, 0),
 					new PointWherePlaced(0, 7, 1),
